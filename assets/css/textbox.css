@@ -1,0 +1,55 @@
+.textbox-01 {
+  background-color: #fff; }
+  .textbox-01 .textbox__image-wrapper {
+    position: relative;
+    overflow: hidden; }
+    .textbox-01 .textbox__image-wrapper:before {
+      content: '';
+      display: block;
+      width: 100%;
+      padding-top: 80%; }
+  .textbox-01 .textbox__image {
+    top: 50%;
+    right: 50%;
+    position: absolute;
+    -webkit-transform: translate(-50%, 50%);
+    -ms-transform: translate(-50%, 50%);
+    transform: translate(-50%, 50%); }
+  .textbox-01 .textbox__text-content {
+    padding: 20px; }
+  .textbox-01 .textbox__title {
+    margin-bottom: 15px; }
+
+.textbox-02 {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  position: relative;
+  height: 100%; }
+  .textbox-02 .textbox__image-wrapper {
+    top: 0;
+    left: 0;
+    bottom: 0;
+    position: absolute;
+    background-color: #fff;
+    width: 30%; }
+  .textbox-02 .textbox__image {
+    top: 0;
+    right: 50%;
+    bottom: 0;
+    position: absolute;
+    -webkit-transform: translateX(50%);
+    -ms-transform: translateX(50%);
+    transform: translateX(50%); }
+  .textbox-02 .textbox__text-content {
+    float: right;
+    width: 70%;
+    padding: 30px 0 30px 50px; }
+
+.textbox-02--01 {
+  border: none; }
+
+.textbox-02--02 {
+  background-color: #fff; }
+
+.textbox-03 {
+  text-align: center; }

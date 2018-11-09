@@ -1,0 +1,49 @@
+@mixin modal-01($width , $height) {
+    @include fixed(50%, 50%);
+    transform: translate(50%, -50%);
+    width: $width;
+    height: $height;
+    background-color: #fff;
+    transition: all 0.3s ease-in-out;
+    opacity: 0;
+    visibility: hidden;
+
+    .modal-header {
+        border-bottom: 1px solid #333;
+        padding: 20px;
+        color: #333;
+        font-size: 1.125rem;
+        font-weight: bold;
+    }
+
+    .modal-body {
+        padding: 20px;
+    }
+
+    &.show {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .close-btn {
+        cursor: pointer;
+        @include absolute(15px, 15px);
+        width: 25px;
+        height: 25px;
+
+        &:before,
+        &:after {
+            content: "";
+            display: block;
+            @include absolute(50%, 0 , null, 0);
+            width: 100%;
+            height: 2px;
+            transform: rotateZ(45deg);
+            background-color: #333;
+        }
+
+        &:after {
+            transform: rotateZ(135deg);
+        }
+    }
+}

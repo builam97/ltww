@@ -1,0 +1,81 @@
+@import 'vendor/_include-media.scss';
+@import 'vendor/_center.scss';
+@import 'vendor/_position.scss';
+$breakpoints: (xs: 320px, sm: 560px, md: 768px, lg: 992px, xl: 1200px);
+
+@mixin grid-01($sm: "1", $md: "1", $lg: "1",$paddingsm: null, $paddingmd: $paddingsm, $paddinglg: $paddingmd) {
+	font-size: 0;
+	margin: 0 -#{$paddingsm};
+	display: flex;
+	flex-wrap: wrap;
+
+	.grid-item {
+		width: #{ 100/$sm + "%"};
+		padding: $paddingsm;
+		display: inline-block;
+		vertical-align: top;
+	}
+
+	@include media('>=md') {
+		margin: 0 -#{$paddingmd};
+		.grid-item {
+			padding: $paddingmd;
+			width: #{ 100/$md + "%"};
+		}
+	}
+
+	@include media('>=lg') {
+		margin: 0 -#{$paddinglg};
+		.grid-item {
+			padding: $paddinglg;
+			width: #{ 100/$lg + "%"};
+		}
+	}
+}
+
+// @mixin gallery-02($column) {
+// 	margin: -1px;
+// 	font-size: 0;
+
+// 	.item {
+// 		$width : 100/$column;
+// 		display: inline-block;
+// 		width: $width + %;
+// 		padding: 1px;
+// 		position: relative;
+// 		overflow: hidden;
+
+// 		&:before {
+// 			content: "";
+// 			display: block;
+// 			position: relative;
+// 			padding-top: 100%;
+// 			width: calc(100% - 1px);
+// 			background-color: #ddd;
+// 		}
+
+// 		.img_wp {
+// 			// overflow: hidden;
+// 			@include absolute(0px, 0px, 0px, 0px);
+
+// 			&:after {
+// 				content: '';
+// 				display: block;
+// 				width: 100%;
+// 				height: 100%;
+// 				border: 1px solid #fff;
+// 				@include absolute(0, 0, 0, 0);
+// 			}
+// 		}
+
+// 		.img_item {
+// 			@include absolute(1px, null, 1px, 50%);
+// 			transform: translateX(-50%);
+// 			height: 100%;
+// 		}
+// 	}
+// }
+
+// .gallery-02 {
+// 	@include gallery-02(3);
+// }

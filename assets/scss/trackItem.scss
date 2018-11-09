@@ -1,0 +1,58 @@
+.TrackItem {
+	overflow: hidden;
+	padding: 12px 5px;
+	cursor: pointer;
+	border-radius: 9px;
+	
+	.media-wrapper {
+		* {
+			@include selectNone;
+		}
+		
+		float: left;
+		position: relative;
+		text-align: center;
+		margin-right: 25px;
+		border: 2px solid #999;
+		border-radius: 50%;
+		overflow: hidden;
+
+		img {
+			// width: 70%;
+			display: inline-block;
+			@include absolute(0, null, null, 0);
+			width: 100%;
+		}
+			
+		&:before {
+			content: '';
+			display: block;
+			@include relative(0, 0, 0, 0);
+			padding-top: 100%;
+			min-width: 65px;
+			border-radius: 50%;
+			background-color: #ddd;
+		}
+	}
+
+	.textbox {
+		padding-left: 90px;
+		* {
+			@include selectNone;
+		}
+
+		.title {
+			font-weight: 600;
+			margin-bottom: 7px;
+			font-size: 14px;
+		}
+
+		.author {
+			font-size: 12px;
+		}
+	}
+
+	&.active {
+		background-color: #ddd;
+	}
+}
