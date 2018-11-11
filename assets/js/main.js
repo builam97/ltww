@@ -1,6 +1,28 @@
-// jQuery(document).ready(function($) {
+ var globalEvent = {
+    touch : false,
+    swipeLeft: false,
+    swipeRight: false,
+    clickBallVolume: false,
 
-// });
+    reset : function(){
+      this.touch = false;
+      this.swipeLeft = false;
+      this.swipeRight = false;
+    }
+  }
+
+  var mouseObject = {
+    posX: null,
+    posY: null,
+
+    setCurrentPos : function(x, y){
+      this.posX = x;
+      this.posY = y;
+    },
+
+    isSwipeLeft : function(x){ return x < (this.posX - 70) ? true : false},
+    isSwipeRight : function(x){ return x > (this.posX + 70 ) ? true : false},
+  }
 
 document.addEventListener('click', function(e){
   // let target = e.target;
@@ -12,20 +34,12 @@ document.addEventListener('click', function(e){
   // }
 });
 
+document.addEventListener('mouseup', function(){
+  globalEvent.clickBallVolume = false;
+})
+
 window.addEventListener('DOMContentLoaded', function(){
   // define Variable
-  var globalEvent = {
-    touch : false,
-    swipeLeft: false,
-    swipeRight: false,
-
-    reset : function(){
-      this.touch = false;
-      this.swipeLeft = false;
-      this.swipeRight = false;
-    }
-  }
-
   var listTrack = document.getElementById('listTrack'),
       speakerButton = document.getElementById('speaker-button'),
       bulletListTrack = document.getElementById('list-track-bullet'),
@@ -39,21 +53,16 @@ window.addEventListener('DOMContentLoaded', function(){
       playViewControl = document.getElementById('play-view__control'),
       inputSearch = document.getElementsByClassName('input-search-01'),
       searchResult = document.getElementById('search-result-wrapper'),
-      closeBtnModal = document.getElementsByClassName('close-btn')
+      closeBtnModal = document.getElementsByClassName('close-btn'),
+      ballVolume = document.getElementById('ballVolume'),
+      pause_or_play_btn = document.getElementById('pause_or_play_btn'),
+      speaker_volume = document.getElementById('speaker-volume'),
+      speaker_progress = document.getElementById('speakerProgress')
       ;
 
-  var mouseObject = {
-    posX: null,
-    posY: null,
-
-    setCurrentPos : function(x, y){
-      this.posX = x;
-      this.posY = y;
-    },
-
-    isSwipeLeft : function(x, y){ return x < (this.posX - 70) ? true : false},
-    isSwipeRight : function(x, y){ return x > (this.posX + 70 ) ? true : false},
-  }
+  // console.log(speaker_volume.getBoundingClientRect().y);
+  let speaker_volume_posY = speaker_volume.getBoundingClientRect().y,
+      volume_posY = 50;
 
   const self = this;
 
@@ -114,6 +123,37 @@ window.addEventListener('DOMContentLoaded', function(){
     globalEvent.reset();
   });
 
+  // handle swiper on desktop
+  dashBoard.addEventListener('mousedown', function(e){
+    mouseObject.setCurrentPos( e.pageX, e.pageY );
+    console.log(e.pageX, e.pageY);
+  })
+
+  dashBoard.addEventListener('mouseup', function(e){
+    // mouseObject.setCurrentPos( e.pageX, e.pageY );
+    if (mouseObject.isSwipeRight(e.pageX, e.pageY)) {
+      globalEvent.swipeRight = true;
+    }
+
+    if(mouseObject.isSwipeLeft(e.pageX, e.pageY)) {
+      globalEvent.swipeLeft = true;
+    };
+
+    // handle show list track
+    if (globalEvent.swipeRight) {
+      listTrack.classList.add('show');
+      bulletListTrack.classList.add('active');
+      bulletHome.classList.remove('active');
+    } else if (globalEvent.swipeLeft) {
+      listTrack.classList.remove('show');
+      bulletListTrack.classList.remove('active');
+      bulletHome.classList.add('active');
+    }
+
+    // reset globalEvent
+    globalEvent.reset();
+  })
+
   // handle toggle speaker-button
   speakerButton.addEventListener('click', function(){
     this.classList.contains('active') ? this.classList.remove('active') : this.classList.add('active');
@@ -162,5 +202,42 @@ window.addEventListener('DOMContentLoaded', function(){
         e.closest('.modal-01').classList.remove('show');
       }
     })
+  })
+
+  // scroll volume
+  ballVolume.addEventListener('mousedown', function(e){
+    globalEvent.clickBallVolume = true;
+    console.log(globalEvent.clickBallVolume);
+  })
+
+  ballVolume.addEventListener('mousemove', function(e){
+    if(globalEvent.clickBallVolume) {
+      mouseObject.setCurrentPos(e.pageX, e.pageY);
+      // console.log(e.pageY + "moving");
+      volume_posY = e.pageY - speaker_volume_posY;
+      if (e.pageY - speaker_volume_posY < - 1) {
+        volume_posY = 0;
+      } else if (e.pageY - speaker_volume_posY > 111) {
+        volume_posY = 100;
+      } else {
+        volume_posY = e.pageY - speaker_volume_posY;
+        console.log(ballVolume.getBoundingClientRect().y);
+        console.log(speaker_volume_posY);
+        // console.log(volume_posY);
+      }
+
+      ballVolume.style.top = volume_posY + '%';
+      speakerProgress.style.top = volume_posY + '%';
+    }
+  })
+
+  // ballVolume.addEventListener('mouseup', function(){
+  //   globalEvent.clickBallVolume = false;
+  //   console.log(globalEvent.clickBallVolume);
+  // })
+
+  //click pause play button
+  pause_or_play_btn.addEventListener('click', function(){
+
   })
 })

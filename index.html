@@ -18,8 +18,8 @@
 	</script>
 	<script>
 		$(document).ready(function () {
-			$('#but').click(function () {
-				console.log("vao");
+			$('#but').click(function (e) {
+				e.preventDefault();
 				var searchValue = $("#search").val();
 				console.log("search value",searchValue);
 				SC.initialize({
@@ -42,7 +42,7 @@
 			});
 		});
 	</script>
-
+</head>
 <body>
 	<div id="app">
 		<div class="Dashboard-01">
@@ -52,11 +52,11 @@
 					<div class="search-wrapper">
 						<div class="search-form-wrapper">
 							<form class="search-form-01">
-								<input id="search" type="text" class="input-search-01" placeholder="Nhập từ khoá tìm kiếm ...">
-								<input class="button-search-01" id="but" type="button"></button>
+								<input type="text" id="search" class="input-search-01" placeholder="Nhập từ khoá tìm kiếm ...">
+								<button class="button-search-01" id="but"></button>
 							</form>
-						</div>
-
+						</div>	
+						
 						<!-- suggest track -->
 						<div class="search-result-wrapper" id="search-result-wrapper">
 							<ul class="search-result" id="search-result">
@@ -65,7 +65,7 @@
 								<!-- { listSuggest } -->
 							</ul>
 						</div>
-
+						
 						<!-- listTrack -->
 						<div class="listTrack--wrapper" id="listTrack">
 							<div class="modify-listTrack-btn" id="toggle-modify-listTrack">
@@ -113,31 +113,31 @@
 						<!-- prev, pause/play , next -->
 						<div class="control-main control-main-01">
 							<div class="control-item">
-								<img src="assets/images/prev.png" alt="prev" id="prev_btn" />
+								<img src="assets/images/prev.png" alt="prev" id="prev_btn"/>
+							</div>
+
+							<div class="control-item" >
+								<img src="assets/images/play.png" alt="status" id="pause_or_play_btn"/>
 							</div>
 
 							<div class="control-item">
-								<img src="assets/images/play.png" alt="status" id="pause_or_play_btn" />
-							</div>
-
-							<div class="control-item">
-								<img src="assets/images/next.png" alt="next" id="next_btn" />
+								<img src="assets/images/next.png" alt="next" id="next_btn"/>
 							</div>
 						</div>
-
+						
 						<!-- volume control -->
 						<div class="speaker-button" id="speaker-button">
 							<img src="assets/images/speaker.png" alt="volume">
 							<!-- <img src="assets/images/speaker.png" alt="volume"  onclick="volumeFunc"> -->
-
+							
 							<!-- <v-touch @tap="tap_volumeFunc" @panmove="panmove"> -->
-							<div class="speaker-volume" id="speaker-volume">
-								<div class="speaker__progress" id="speakerProgress"></div>
-								<div class="speaker__progress-ball" id="ballVolume">
-									<span class="speaker__progress-ball-content">
-									</span>
-								</div>
-							</div>
+								<div class="speaker-volume" id="speaker-volume">
+									<div class="speaker__progress" id="speakerProgress"></div>
+									<div class="speaker__progress-ball" id="ballVolume">
+										<span class="speaker__progress-ball-content">
+										</span>
+									</div>
+								</div> 
 							<!-- </v-touch> -->
 						</div>
 					</div>
@@ -178,10 +178,6 @@
 	</div>
 </body>
 <!-- js -->
-<script src="assets/js/vendor/jquery-3.2.1.min.js"></script>
-<script src="assets/js/vendor/swiper.js"></script>
-<script src="assets/js/vendor/swiper.jquery.js"></script>
 <script src="assets/js/background.js"></script>
 <script src="assets/js/main.js"></script>
-
 </html>
