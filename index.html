@@ -8,40 +8,6 @@
 	<meta name="format-detection" content="telephone=no">
 	<!-- css -->
 	<link rel="stylesheet" href="assets/css/main.css">
-	<script src="https://connect.soundcloud.com/sdk/sdk-3.3.0.js"></script>
-	<script src="http://code.jquery.com/jquery-1.7.2.js"></script>
-	<script>
-		var url = 'https://api.soundcloud.com/tracks?client_id=ec8f5272bde9a225c71692a876603706';
-		$.getJSON(url, function (tracks) {
-			console.log(tracks);
-		});
-	</script>
-	<script>
-		$(document).ready(function () {
-			$('#but').click(function (e) {
-				e.preventDefault();
-				var searchValue = $("#search").val();
-				console.log("search value",searchValue);
-				SC.initialize({
-					client_id: 'ec8f5272bde9a225c71692a876603706'
-				});
-
-				// find all sounds of buskers licensed under 'creative commons share alike'
-				SC.get('/tracks', {
-					q: searchValue,
-					license: 'cc-by-sa'
-				}).then(function (tracks) {
-					var html ='';
-					tracks.forEach(element => {
-						 // html += '<li class="item"><span href="#" class="suggestText" onclick="clickTrackSuggest">'+element.title+'</span></li>';
-						 html += '<li class="item"><div class="TrackItem " data-trackIndex="1"><div class="media-wrapper"><img src="assets/images/trackItem.jpeg" alt="bee97" /></div>'+'<p class="title">'+element.title+'</p>'
-						 +'<p class="author">'+element.user.username+'</p></div></li>'
-					});
-				 var searchresult = $('#listMusic').html(html);
-				});
-			});
-		});
-	</script>
 </head>
 <body>
 	<div id="app">
@@ -170,6 +136,16 @@
 								<span class="checkbox"></span>
 								<span class="setting__name">hide control</span>
 							</li>
+							<li class="setting__item" data-target="toggleAlarm">
+								<img src="/images/alarm.png" alt="" class="alarm-icon">
+								<span>Hen gio tat nhac</span>
+								<input type="text" name="alarm-input">
+								<input type="button" value="Ok" name="alarm-submit">
+
+								<div class="result-alarm">
+									
+								</div>
+							</li>
 						</ul>
 					</div>
 				</div>
@@ -179,5 +155,8 @@
 </body>
 <!-- js -->
 <script src="assets/js/background.js"></script>
+<script src="https://connect.soundcloud.com/sdk/sdk-3.3.0.js"></script>
+<script src="http://code.jquery.com/jquery-1.7.2.js"></script>
+<!-- <script src="assets/js/SC.js"></script> -->
 <script src="assets/js/main.js"></script>
 </html>

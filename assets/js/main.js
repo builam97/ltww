@@ -1,4 +1,4 @@
- var globalEvent = {
+  var globalEvent = {
     touch : false,
     swipeLeft: false,
     swipeRight: false,
@@ -86,6 +86,159 @@ window.addEventListener('DOMContentLoaded', function(){
     toggleClass(playViewControl, "hide");
   }
 
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////// SC CODE ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// var url = 'https://api.soundcloud.com/tracks?client_id=ec8f5272bde9a225c71692a876603706';
+// $.getJSON(url, function (tracks) {
+//  console.log(tracks);
+// });
+
+var listTrack = [];
+var favoriteList = [];
+var mainTrack= {
+  indexTrack: null,
+  status : "pause",
+  setIndex: function(index){this.indexTrack = index},
+  toggle: ()=>{this.status = this.status==="play"?"pause":"play"},
+  isPlay: ()=>status==="play",
+  play: function(){
+    this.status = "play";
+  },
+  pause: function(){
+    this.status = "pause";
+  }
+};
+
+// update playview 
+let updatePlayView = (index)=>{
+  $('.play-view__image img').attr('src', listTrack[index].user.avatar_url); 
+  $('.play-view__information .textbox__title').text( listTrack[index].title );
+  $('.play-view__information .textbox__subtitle').text(listTrack[index].user.username);
+}
+
+// play a track
+let playFunc = ()=>{
+  if (window.sound) {
+    window.sound.play();
+    mainTrack.play();
+    $('#pause_or_play_btn').attr('src', 'assets/images/pause.png');
+  }
+}
+
+// pause a track
+let pauseFunc = ()=>{
+  if (window.sound) {
+    window.sound.pause();
+    mainTrack.pause();
+    $('#pause_or_play_btn').attr('src', 'assets/images/play.png');
+  }
+}
+
+// use index to play track , change track
+let playTrackWithIndex = async (index)=>{
+  pauseFunc();
+  updatePlayView(index);
+  mainTrack.setIndex.call(mainTrack, index);
+  // console.log();
+  window.sound = await SC.stream('tracks/'+ parseInt(listTrack[index].id));
+  playFunc();
+}
+
+$(document).ready(function () {
+  $('#but').click(function (e) {
+    e.preventDefault();
+    console.log('hello');
+    var searchValue = $("#search").val();
+    console.log("search value",searchValue);
+    SC.initialize({
+      client_id: 'ec8f5272bde9a225c71692a876603706'
+    });
+
+    // find all sounds of buskers licensed under 'creative commons share alike'
+    SC.get('/tracks', {
+      q: searchValue,
+      // license: 'cc-by-sa'
+    }).then(function (tracks) {
+      listTrack = tracks;
+      var html ='';
+      tracks.forEach((element, index) => {
+         // html += '<li class="item"><span href="#" class="suggestText" onclick="clickTrackSuggest">'+element.title+'</span></li>';
+         html +=  '<li class="item">\
+                <div class="TrackItem " data-trackIndex="'+index+'">\
+                  <div class="media-wrapper">\
+                    <img src="' + element.user.avatar_url + '" alt="'+element.user.username+'" />\
+                  </div>\
+                  <p class="title">'+element.title+'</p>\
+                  <p class="author">'+element.user.username+'</p>\
+                </div>\
+              </li>'
+      });
+     var searchresult = $('#listMusic').html(html);
+    });
+  });
+
+  $('#pause_or_play_btn').on('click', function(event) {
+    event.preventDefault();
+    mainTrack.toggle();
+    if (mainTrack.isPlay()) {
+      pauseFunc();
+    } else {
+      playFunc();
+    }
+  });
+
+  $('#next_btn').on('click', function(event) {
+    event.preventDefault();
+    playTrackWithIndex( mainTrack.indexTrack + 1 );
+  });
+
+  $('#prev_btn').on('click', function(event) {
+    event.preventDefault();
+    playTrackWithIndex( mainTrack.indexTrack - 1 );
+  });
+
+  // $('#listMusic .TrackItem').on('click', function(event) {
+  //  event.preventDefault();
+  //  console.log('ok');
+    // console.log();
+  // });
+});
+
+$(document).on('click', '#listMusic .TrackItem', async function(event) {
+  event.preventDefault();
+  let index = parseInt($(this).attr('data-trackIndex'));
+  playTrackWithIndex(index);
+});
+
+$('input[name="alarm-submit"]').on('click', function(event) {
+  event.preventDefault();
+  let t = $('input[name="alarm-input"]').val();
+  let time = t*60*1000;
+  console.log(time);
+  setTimeout(function(){
+    pauseFunc();
+  }, time)
+});
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////// END SC CODE ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
   // handle listTrack event show & hide on mobile
   const dashBoard = document.getElementsByClassName('Dashboard-01')[0];
   dashBoard.addEventListener("touchstart", function(e){
@@ -170,19 +323,19 @@ window.addEventListener('DOMContentLoaded', function(){
 
   // handle toggle setting
   settingBtn.addEventListener('click', function(){
-    console.log('ok');
     toggleClass(modalSetting, "show");
   })
 
   // handle setting
   let settingItemArr = Array.from(settingItem);
-  settingItemArr.map(e=>{
-    let data = e.getAttribute("data-target");
-    console.log(data);
-    e.addEventListener('click', function(){
-      toggleClass(e, "active");
-      eval(data)();
-    })
+  settingItemArr.map((e, i)=>{
+    if (i === 0 || i === 1) {
+      let data = e.getAttribute("data-target");
+      e.addEventListener('click', function(){
+        toggleClass(e, "active");
+        eval(data)();
+      })
+    }
   })
 
   // handle input search
@@ -207,7 +360,6 @@ window.addEventListener('DOMContentLoaded', function(){
   // scroll volume
   ballVolume.addEventListener('mousedown', function(e){
     globalEvent.clickBallVolume = true;
-    console.log(globalEvent.clickBallVolume);
   })
 
   ballVolume.addEventListener('mousemove', function(e){
@@ -221,20 +373,13 @@ window.addEventListener('DOMContentLoaded', function(){
         volume_posY = 100;
       } else {
         volume_posY = e.pageY - speaker_volume_posY;
-        console.log(ballVolume.getBoundingClientRect().y);
-        console.log(speaker_volume_posY);
-        // console.log(volume_posY);
       }
 
       ballVolume.style.top = volume_posY + '%';
       speakerProgress.style.top = volume_posY + '%';
+
     }
   })
-
-  // ballVolume.addEventListener('mouseup', function(){
-  //   globalEvent.clickBallVolume = false;
-  //   console.log(globalEvent.clickBallVolume);
-  // })
 
   //click pause play button
   pause_or_play_btn.addEventListener('click', function(){
