@@ -8,41 +8,7 @@
 	<meta name="format-detection" content="telephone=no">
 	<!-- css -->
 	<link rel="stylesheet" href="assets/css/main.css">
-	<script src="https://connect.soundcloud.com/sdk/sdk-3.3.0.js"></script>
-	<script src="http://code.jquery.com/jquery-1.7.2.js"></script>
-	<script>
-		var url = 'https://api.soundcloud.com/tracks?client_id=ec8f5272bde9a225c71692a876603706';
-		$.getJSON(url, function (tracks) {
-			console.log(tracks);
-		});
-	</script>
-	<script>
-		$(document).ready(function () {
-			$('#but').click(function () {
-				console.log("vao");
-				var searchValue = $("#search").val();
-				console.log("search value",searchValue);
-				SC.initialize({
-					client_id: 'ec8f5272bde9a225c71692a876603706'
-				});
-
-				// find all sounds of buskers licensed under 'creative commons share alike'
-				SC.get('/tracks', {
-					q: searchValue,
-					license: 'cc-by-sa'
-				}).then(function (tracks) {
-					var html ='';
-					tracks.forEach(element => {
-						 // html += '<li class="item"><span href="#" class="suggestText" onclick="clickTrackSuggest">'+element.title+'</span></li>';
-						 html += '<li class="item"><div class="TrackItem " data-trackIndex="1"><div class="media-wrapper"><img src="assets/images/trackItem.jpeg" alt="bee97" /></div>'+'<p class="title">'+element.title+'</p>'
-						 +'<p class="author">'+element.user.username+'</p></div></li>'
-					});
-				 var searchresult = $('#listMusic').html(html);
-				});
-			});
-		});
-	</script>
-
+</head>
 <body>
 	<div id="app">
 		<div class="Dashboard-01">
@@ -52,11 +18,11 @@
 					<div class="search-wrapper">
 						<div class="search-form-wrapper">
 							<form class="search-form-01">
-								<input id="search" type="text" class="input-search-01" placeholder="Nhập từ khoá tìm kiếm ...">
-								<input class="button-search-01" id="but" type="button"></button>
+								<input type="text" id="search" class="input-search-01" placeholder="Nhập từ khoá tìm kiếm ...">
+								<button class="button-search-01" id="but"></button>
 							</form>
-						</div>
-
+						</div>	
+						
 						<!-- suggest track -->
 						<div class="search-result-wrapper" id="search-result-wrapper">
 							<ul class="search-result" id="search-result">
@@ -65,7 +31,7 @@
 								<!-- { listSuggest } -->
 							</ul>
 						</div>
-
+						
 						<!-- listTrack -->
 						<div class="listTrack--wrapper" id="listTrack">
 							<div class="modify-listTrack-btn" id="toggle-modify-listTrack">
@@ -110,34 +76,37 @@
 					</div>
 
 					<div class="control-main-wrapper">
+						<div class="like-btn" id="like-btn">
+							<span class="icon-like"></span>
+						</div>
 						<!-- prev, pause/play , next -->
 						<div class="control-main control-main-01">
 							<div class="control-item">
-								<img src="assets/images/prev.png" alt="prev" id="prev_btn" />
+								<img src="assets/images/prev.png" alt="prev" id="prev_btn"/>
+							</div>
+
+							<div class="control-item" >
+								<img src="assets/images/play.png" alt="status" id="pause_or_play_btn"/>
 							</div>
 
 							<div class="control-item">
-								<img src="assets/images/play.png" alt="status" id="pause_or_play_btn" />
-							</div>
-
-							<div class="control-item">
-								<img src="assets/images/next.png" alt="next" id="next_btn" />
+								<img src="assets/images/next.png" alt="next" id="next_btn"/>
 							</div>
 						</div>
-
+						
 						<!-- volume control -->
 						<div class="speaker-button" id="speaker-button">
 							<img src="assets/images/speaker.png" alt="volume">
 							<!-- <img src="assets/images/speaker.png" alt="volume"  onclick="volumeFunc"> -->
-
+							
 							<!-- <v-touch @tap="tap_volumeFunc" @panmove="panmove"> -->
-							<div class="speaker-volume" id="speaker-volume">
-								<div class="speaker__progress" id="speakerProgress"></div>
-								<div class="speaker__progress-ball" id="ballVolume">
-									<span class="speaker__progress-ball-content">
-									</span>
-								</div>
-							</div>
+								<div class="speaker-volume" id="speaker-volume">
+									<div class="speaker__progress" id="speakerProgress"></div>
+									<div class="speaker__progress-ball" id="ballVolume">
+										<span class="speaker__progress-ball-content">
+										</span>
+									</div>
+								</div> 
 							<!-- </v-touch> -->
 						</div>
 					</div>
@@ -154,6 +123,11 @@
 			<div class="setting-btn" id="settingBtn">
 				<img src="assets/images/cog.png" alt="setting">
 			</div>
+
+			<div class="favorite-list-btn" id="favoriteListBtn">
+				<img src="assets/images/home.png" alt="liked">
+			</div>
+
 			<div class="modal-01" id="modalSetting">
 				<div class="modal-header">
 					<p class="modal__title">Setting</p>
@@ -170,18 +144,39 @@
 								<span class="checkbox"></span>
 								<span class="setting__name">hide control</span>
 							</li>
+							<li class="setting__item" data-target="toggleAlarm">
+								<img src="/images/alarm.png" alt="" class="alarm-icon">
+								<span>Hen gio tat nhac</span>
+								<input type="text" name="alarm-input">
+								<input type="button" value="Ok" name="alarm-submit">
+
+								<div class="result-alarm">
+									
+								</div>
+							</li>
 						</ul>
 					</div>
+				</div>
+			</div>
+
+			<div class="modal-01 favorite-list" id="modalFavoriteList">
+				<div class="modal-header">
+					<p class="modal__title">Setting</p>
+					<div class="close-btn"></div>
+				</div>
+				<div class="modal-body">
+					<ul class="favorite-list-box">
+						
+					</ul>
 				</div>
 			</div>
 		</div>
 	</div>
 </body>
 <!-- js -->
-<script src="assets/js/vendor/jquery-3.2.1.min.js"></script>
-<script src="assets/js/vendor/swiper.js"></script>
-<script src="assets/js/vendor/swiper.jquery.js"></script>
 <script src="assets/js/background.js"></script>
+<script src="https://connect.soundcloud.com/sdk/sdk-3.3.0.js"></script>
+<script src="http://code.jquery.com/jquery-1.7.2.js"></script>
+<!-- <script src="assets/js/SC.js"></script> -->
 <script src="assets/js/main.js"></script>
-
 </html>
