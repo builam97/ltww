@@ -488,7 +488,8 @@ input, input:before, input:after {
     height: 80%;
     background-color: #333; }
 
-#modalSetting {
+#modalSetting,
+#modalFavoriteList {
   z-index: 99999;
   border: 1px solid #666;
   top: 50%;
@@ -504,25 +505,31 @@ input, input:before, input:after {
   min-height: 300px;
   background-color: #f7f7f7;
   border-radius: 10px; }
-  #modalSetting .modal-header {
+  #modalSetting .modal-header,
+  #modalFavoriteList .modal-header {
     border-bottom: 1px solid #333;
     padding: 20px;
     color: #333;
     font-size: 1.125rem;
     font-weight: bold; }
-  #modalSetting .modal-body {
+  #modalSetting .modal-body,
+  #modalFavoriteList .modal-body {
     padding: 20px; }
-  #modalSetting.show {
+  #modalSetting.show,
+  #modalFavoriteList.show {
     opacity: 1;
     visibility: visible; }
-  #modalSetting .close-btn {
+  #modalSetting .close-btn,
+  #modalFavoriteList .close-btn {
     cursor: pointer;
     top: 15px;
     right: 15px;
     position: absolute;
     width: 25px;
     height: 25px; }
-    #modalSetting .close-btn:before, #modalSetting .close-btn:after {
+    #modalSetting .close-btn:before, #modalSetting .close-btn:after,
+    #modalFavoriteList .close-btn:before,
+    #modalFavoriteList .close-btn:after {
       content: "";
       display: block;
       top: 50%;
@@ -533,8 +540,58 @@ input, input:before, input:after {
       height: 2px;
       transform: rotateZ(45deg);
       background-color: #333; }
-    #modalSetting .close-btn:after {
+    #modalSetting .close-btn:after,
+    #modalFavoriteList .close-btn:after {
       transform: rotateZ(135deg); }
+
+@font-face {
+  font-family: 'icomoon';
+  src: url("../font/icomoon.eot");
+  src: url("../font/icomoon.eot") format("embedded-opentype"), url("../font/icomoon.ttf") format("truetype"), url("../font/icomoon.woff") format("woff");
+  font-weight: normal;
+  font-style: normal; }
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+.icon-like:before {
+  content: "\e900";
+  color: #d75a4a; }
+
+.favorite-list-btn {
+  position: fixed;
+  right: 10px;
+  top: calc(55% - 141px);
+  border-radius: 50%;
+  padding: 11px 14px 12px 13px;
+  background-color: #fff;
+  cursor: pointer; }
+  .favorite-list-btn img {
+    max-width: 100%; }
+
+.like-btn {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%); }
+  .like-btn .icon-like {
+    transition: all 0.3s ease-in-out;
+    font-size: 35px;
+    cursor: pointer; }
+    .like-btn .icon-like:before {
+      color: #fff; }
+    .like-btn .icon-like.active .like-btn .icon-like:before {
+      color: #d75a4a; }
 
 .TrackItem {
   overflow: hidden;

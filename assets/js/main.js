@@ -57,7 +57,8 @@ window.addEventListener('DOMContentLoaded', function(){
       ballVolume = document.getElementById('ballVolume'),
       pause_or_play_btn = document.getElementById('pause_or_play_btn'),
       speaker_volume = document.getElementById('speaker-volume'),
-      speaker_progress = document.getElementById('speakerProgress')
+      speaker_progress = document.getElementById('speakerProgress'),
+      favoriteListBtn = document.getElementById('favoriteListBtn')
       ;
 
   // console.log(speaker_volume.getBoundingClientRect().y);
@@ -100,9 +101,9 @@ window.addEventListener('DOMContentLoaded', function(){
 // $.getJSON(url, function (tracks) {
 //  console.log(tracks);
 // });
-
-var listTrack = [];
+// var favoriteList = window.localStorage.getItem("favoriteList")? window.localStorage.getItem("favoriteList"): [];
 var favoriteList = [];
+var SClistTrack = [];
 var mainTrack= {
   indexTrack: null,
   status : "pause",
@@ -118,10 +119,10 @@ var mainTrack= {
 };
 
 // update playview 
-let updatePlayView = (index)=>{
-  $('.play-view__image img').attr('src', listTrack[index].user.avatar_url); 
-  $('.play-view__information .textbox__title').text( listTrack[index].title );
-  $('.play-view__information .textbox__subtitle').text(listTrack[index].user.username);
+let updatePlayView = (index, list)=>{
+  $('.play-view__image img').attr('src', list[index].user.avatar_url); 
+  $('.play-view__information .textbox__title').text( list[index].title );
+  $('.play-view__information .textbox__subtitle').text(list[index].user.username);
 }
 
 // play a track
@@ -143,14 +144,18 @@ let pauseFunc = ()=>{
 }
 
 // use index to play track , change track
-let playTrackWithIndex = async (index)=>{
+let playTrackWithIndex = async (index, list)=>{
   pauseFunc();
-  updatePlayView(index);
+  updatePlayView(index, list);
   mainTrack.setIndex.call(mainTrack, index);
   // console.log();
-  window.sound = await SC.stream('tracks/'+ parseInt(listTrack[index].id));
+  window.sound = await SC.stream('tracks/'+ parseInt(list[index].id));
   playFunc();
 }
+
+SC.initialize({
+  client_id: 'ec8f5272bde9a225c71692a876603706'
+});
 
 $(document).ready(function () {
   $('#but').click(function (e) {
@@ -158,16 +163,13 @@ $(document).ready(function () {
     console.log('hello');
     var searchValue = $("#search").val();
     console.log("search value",searchValue);
-    SC.initialize({
-      client_id: 'ec8f5272bde9a225c71692a876603706'
-    });
 
     // find all sounds of buskers licensed under 'creative commons share alike'
     SC.get('/tracks', {
       q: searchValue,
       // license: 'cc-by-sa'
     }).then(function (tracks) {
-      listTrack = tracks;
+      SClistTrack = tracks;
       var html ='';
       tracks.forEach((element, index) => {
          // html += '<li class="item"><span href="#" class="suggestText" onclick="clickTrackSuggest">'+element.title+'</span></li>';
@@ -197,12 +199,12 @@ $(document).ready(function () {
 
   $('#next_btn').on('click', function(event) {
     event.preventDefault();
-    playTrackWithIndex( mainTrack.indexTrack + 1 );
+    playTrackWithIndex( mainTrack.indexTrack + 1, SClistTrack );
   });
 
   $('#prev_btn').on('click', function(event) {
     event.preventDefault();
-    playTrackWithIndex( mainTrack.indexTrack - 1 );
+    playTrackWithIndex( mainTrack.indexTrack - 1, SClistTrack );
   });
 
   // $('#listMusic .TrackItem').on('click', function(event) {
@@ -215,7 +217,14 @@ $(document).ready(function () {
 $(document).on('click', '#listMusic .TrackItem', async function(event) {
   event.preventDefault();
   let index = parseInt($(this).attr('data-trackIndex'));
-  playTrackWithIndex(index);
+  playTrackWithIndex(index, SClistTrack);
+});
+
+$(document).on('click', '#modalFavoriteList .TrackItem', async function(event) {
+  event.preventDefault();
+  let index = parseInt($(this).attr('data-trackIndex'));
+  console.log(favoriteList);
+  playTrackWithIndex(index, favoriteList);
 });
 
 $('input[name="alarm-submit"]').on('click', function(event) {
@@ -227,6 +236,49 @@ $('input[name="alarm-submit"]').on('click', function(event) {
     pauseFunc();
   }, time)
 });
+
+$(favoriteListBtn).on('click', function(event) {
+  event.preventDefault();
+  $('#modalFavoriteList').toggleClass('show');
+});
+
+let setLocalFavoriteList = ()=>{
+  window.localStorage.setItem("favoriteList", JSON.stringify(favoriteList));
+  console.log(window.localStorage)
+}
+
+$('#like-btn').on('click', function(event) {
+  event.preventDefault();
+  console.log(favoriteList);
+  favoriteList.push(
+    {
+      id: SClistTrack[mainTrack.indexTrack].id,
+      index: favoriteList.length,
+      title: SClistTrack[mainTrack.indexTrack].title,
+      user: {
+        avatar_url: SClistTrack[mainTrack.indexTrack].user.avatar_url,
+        username: SClistTrack[mainTrack.indexTrack].user.username
+      }
+    }
+  );
+  
+  let html = '';
+  favoriteList.forEach(element=>{
+    html +=  '<li class="item">\
+                <div class="TrackItem " data-trackIndex="'+element.index+'">\
+                  <div class="media-wrapper">\
+                    <img src="' + element.user.avatar_url + '" alt="'+element.user.username+'" />\
+                  </div>\
+                  <p class="title">'+element.title+'</p>\
+                  <p class="author">'+element.user.username+'</p>\
+                </div>\
+              </li>'
+  });
+
+  $('#modalFavoriteList .favorite-list-box').html(html);
+  // setLocalFavoriteList();
+});
+
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
