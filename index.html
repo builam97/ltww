@@ -6,6 +6,9 @@
 	<title>Web nghe nhạc</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no">
 	<meta name="format-detection" content="telephone=no">
+
+	<!-- font -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
 	<!-- css -->
 	<link rel="stylesheet" href="assets/css/main.css">
 </head>
@@ -18,7 +21,7 @@
 					<div class="search-wrapper">
 						<div class="search-form-wrapper">
 							<form class="search-form-01">
-								<input type="text" id="search" class="input-search-01" placeholder="Nhập từ khoá tìm kiếm ...">
+								<input type="text" id="search" class="input-search-01" autocomplete="off" placeholder="Nhập từ khoá tìm kiếm ...">
 								<button class="button-search-01" id="but"></button>
 							</form>
 						</div>	
@@ -26,8 +29,6 @@
 						<!-- suggest track -->
 						<div class="search-result-wrapper" id="search-result-wrapper">
 							<ul class="search-result" id="search-result">
-								<li>a</li>
-								<li>b</li>
 								<!-- { listSuggest } -->
 							</ul>
 						</div>
@@ -144,12 +145,12 @@
 								<span class="checkbox"></span>
 								<span class="setting__name">hide control</span>
 							</li>
-							<li class="setting__item" data-target="toggleAlarm">
+							<li class="setting__item setting__alarm" data-target="toggleAlarm">
 								<img src="/images/alarm.png" alt="" class="alarm-icon">
 								<span>Hen gio tat nhac</span>
-								<input type="text" name="alarm-input">
+								<input type="text" placeholder="Nhập số phút" name="alarm-input">
 								<span>phut</span>
-								<input type="button" value="Ok" name="alarm-submit">
+								<input type="button" value="OK" name="alarm-submit">
 
 								<div class="result-alarm">
 									

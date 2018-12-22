@@ -26,16 +26,6 @@ var mouseObject = {
   isSwipeRight : function(x){ return x > (this.posX + 70 ) ? true : false},
 }
 
-document.addEventListener('click', function(e){
-  // let target = e.target;
-  // let inputItem = document.getElementsByClassName('input-item');
-  // for(var ele of inputItem){
-  //  if (!$(ele).is(target) && $(ele).has(target).length === 0 && $(ele).find('input').val().length == 0) {
-  //    $(ele).find('.label-01').removeClass('up');
-  //  }
-  // }
-});
-
 document.addEventListener('mouseup', function(){
   globalEvent.clickBallVolume = false;
 })
@@ -145,6 +135,16 @@ let pauseFunc = ()=>{
   }
 }
 
+//hide search-result-wrapper
+let hideSearchResult = () => {
+  $('#search-result-wrapper').removeClass('show');
+}
+//show search-result-wrapper
+
+let showSearchResult = () => {
+  $('#search-result-wrapper').addClass('show');
+}
+
 // use index to play track , change track
 let playTrackWithIndex = async (index, list)=>{
   pauseFunc();
@@ -186,19 +186,15 @@ let searchTrackByKey = (text)=>{
 $(document).ready(function () {
   $('#but').click(function (e) {
     e.preventDefault();
-    console.log('hello');
     var searchValue = $("#search").val();
-    console.log("search value",searchValue);
+    searchTrackByKey(searchValue);
+    hideSearchResult();
   });
 
   $('#pause_or_play_btn').on('click', function(event) {
     event.preventDefault();
     mainTrack.toggle();
-    if (mainTrack.isPlay()) {
-      pauseFunc();
-    } else {
-      playFunc();
-    }
+    mainTrack.isPlay() ? pauseFunc() : playFunc();
   });
 
   $('#next_btn').on('click', function(event) {
@@ -213,17 +209,29 @@ $(document).ready(function () {
 
   $('#search').on('keyup', function(event) {
     let arr = Object.keys(suggestData);
+    let inputText = $('#search').val();
+    // let inputText = "a";
+    let html = '';
+    console.log(inputText);
     arr.forEach(e=>{
-      if (e === $('#search').val()[0]) {
-        let html = '';
+      if (e === inputText[0]) {
         let rsArray = suggestData[e];
-        // console.log(rsArray);
+        // let regexText =  + '/g';
+        var regex = new RegExp( '^' + inputText , "g");
         rsArray.forEach(ele=>{
-          html+= '<li>' + ele + '</li>';
-          $('#search-result').html(html);
+          if(ele.match(regex)) {
+            console.log(ele , inputText)
+            html+= '<li class="item">' + ele + '</li>';
+          }
         });
+        $('#search-result').html(html);
+        showSearchResult();
+        return 0;
       }
-    })
+    });
+    if (html.length === 0) {
+      hideSearchResult();
+    }
   });
 
 
@@ -233,11 +241,12 @@ $(document).ready(function () {
     // console.log();
   // });
 });
+
 $(document).on('click', '#search-result li', function(event) {
   event.preventDefault();
   console.log('ok');
   searchTrackByKey($(this).text());
-  $('#search-result-wrapper').removeClass('show');
+  hideSearchResult();
 });
 
 $(document).on('click', '#listMusic .TrackItem', async function(event) {
@@ -275,56 +284,55 @@ let setLocalFavoriteList = ()=>{
 
 $('#like-btn').on('click', function(event) {
   event.preventDefault();
-  console.log(favoriteList);
-  favoriteList.push(
-    {
-      id: SClistTrack[mainTrack.indexTrack].id,
-      index: favoriteList.length,
-      title: SClistTrack[mainTrack.indexTrack].title,
-      user: {
-        avatar_url: SClistTrack[mainTrack.indexTrack].user.avatar_url,
-        username: SClistTrack[mainTrack.indexTrack].user.username
+  try {
+    console.log(SClistTrack[mainTrack.indexTrack].id);
+    $(this).toggleClass('like');
+    favoriteList.push(
+      {
+        id: SClistTrack[mainTrack.indexTrack].id,
+        index: favoriteList.length,
+        title: SClistTrack[mainTrack.indexTrack].title,
+        user: {
+          avatar_url: SClistTrack[mainTrack.indexTrack].user.avatar_url,
+          username: SClistTrack[mainTrack.indexTrack].user.username
+        }
       }
-    }
-  );
+    );
   
-  let html = '';
-  favoriteList.forEach(element=>{
-    html +=  '<li class="item">\
-                <div class="TrackItem " data-trackIndex="'+element.index+'">\
-                  <div class="media-wrapper">\
-                    <img src="' + element.user.avatar_url + '" alt="'+element.user.username+'" />\
+    let html = '';
+    favoriteList.forEach(element=>{
+      html +=  '<li class="item">\
+                  <div class="TrackItem " data-trackIndex="'+element.index+'">\
+                    <div class="media-wrapper">\
+                      <img src="' + element.user.avatar_url + '" alt="'+element.user.username+'" />\
+                    </div>\
+                    <p class="title">'+element.title+'</p>\
+                    <p class="author">'+element.user.username+'</p>\
                   </div>\
-                  <p class="title">'+element.title+'</p>\
-                  <p class="author">'+element.user.username+'</p>\
-                </div>\
-              </li>'
-  });
+                </li>'
+    });
 
-  $('#modalFavoriteList .favorite-list-box').html(html);
-  // setLocalFavoriteList();
+    $('#modalFavoriteList .favorite-list-box').html(html);
+  }
+  catch(err) {
+    console.log('sai dau do roi');
+  }
 });
-
-// let inputSearchArr = Array.from(inputSearch);
-//   inputSearchArr[0].addEventListener('focus', function(){
-//     searchResult.classList.add('show');
-//   });
-
-//   inputSearchArr[0].addEventListener('focusout', function(){
-//     searchResult.classList.remove('show');
-//   });
 
 $(inputSearch).focusin(function(event) {
   event.preventDefault();
-  console.log('focusin')
-  $(searchResult).addClass('show');
+  console.log('focusin');
+    showSearchResult();
 });
 
-$(inputSearch).focusout(function(event) {
-  event.preventDefault();
-  console.log('focusout')
-  // $(searchResult).removeCLass('show');
-});
+// $(inputSearch).on('blur', function(event) {
+//   event.preventDefault();
+//   console.log(event.target);
+//   // if (!$('#search-result-wrapper').is(event.target) && $('#search-result-wrapper').has(event.target).length === 0 ) {
+//     // console.log("close search result");
+//     hideSearchResult();
+//   // }
+// });
 
 
 
@@ -471,8 +479,21 @@ $(inputSearch).focusout(function(event) {
     }
   })
 
-  //click pause play button
-  pause_or_play_btn.addEventListener('click', function(){
 
-  })
+  // handle document click
+  document.addEventListener('click', function(e){
+    let target = e.target;
+
+    // let inputItem = document.getElementsByClassName('input-item');
+    // for(var ele of inputItem){
+    //  if (!$(ele).is(target) && $(ele).has(target).length === 0 && $(ele).find('input').val().length == 0) {
+    //    $(ele).find('.label-01').removeClass('up');
+    //  }
+    // }
+
+    if (!$('.search-wrapper').is(target) && $('.search-wrapper').has(target).length === 0 ) {
+      // console.log("close search result");
+      hideSearchResult();
+    }
+  });
 })

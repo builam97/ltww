@@ -273,6 +273,7 @@
 .setting__content {
   .setting__item {
     margin-bottom: 20px;
+    cursor: pointer;
 
     &.active {
       .checkbox:before {
@@ -280,6 +281,40 @@
       }
     }
   }
+
+  .setting__alarm {
+    input[name="alarm-input"] {
+      border: 1px solid #333;
+      border-radius: 3px;
+      color: #333;
+      padding: 5px 10px;
+
+      &::placeholder {
+        color: #999;
+      }
+    }
+
+    input[name="alarm-submit"] {
+      cursor: pointer;
+      color:#333;
+      background-color: #fff;
+      border: 1px solid #999;
+      height: 27px;
+      line-height: 26px;
+      padding: 0 23px;
+      border-radius: 3px;
+      margin-left: 20px;
+      transition: all 0.3s ease-in-out;
+      font-weight: 700;
+      
+      &:hover {
+        background-color: #d75a4a;
+        color: #fff;
+        border-color: #b94f42;
+      }
+    }
+  }
+
   .checkbox {
     width: 20px;
     height: 20px;
@@ -370,11 +405,16 @@
     cursor: pointer;
     
     &:before {
+      transition: all 0.3s ease-in-out;
       color: #fff;
     }
 
     &.active &:before {
       color: #d75a4a
     }
+  }
+
+  &.like .icon-like:before {
+    color: #d75a4a;
   }
 }
