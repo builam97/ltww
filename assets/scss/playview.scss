@@ -283,6 +283,10 @@
   }
 
   .setting__alarm {
+    .input-group {
+      display: inline-block;
+    }
+
     input[name="alarm-input"] {
       border: 1px solid #333;
       border-radius: 3px;
@@ -292,6 +296,7 @@
       &::placeholder {
         color: #999;
       }
+
     }
 
     input[name="alarm-submit"] {
@@ -311,6 +316,17 @@
         background-color: #d75a4a;
         color: #fff;
         border-color: #b94f42;
+      }
+    }
+
+    @media screen and (max-width: 767px) {
+      .input-group {
+        display: block;
+        margin: 6px 0;
+      }
+
+      input[name="alarm-submit"] {
+        margin-left: 0;
       }
     }
   }
@@ -340,43 +356,12 @@
 #modalSetting,
 #modalFavoriteList {
   z-index: 99999;
-  border: 1px solid #666;
   @include modal-01(60%, auto);
   min-height: 300px;
   background-color: #f7f7f7;
   border-radius: 10px;
   max-height: 80%;
   overflow-y: auto;
-}
-
-@font-face {
-  font-family: 'icomoon';
-  src:  url('../font/icomoon.eot');
-  src:  url('../font/icomoon.eot') format('embedded-opentype'),
-    url('../font/icomoon.ttf') format('truetype'),
-    url('../font/icomoon.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
-
-[class^="icon-"], [class*=" icon-"] {
-  /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'icomoon' !important;
-  speak: none;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1;
-
-  /* Better Font Rendering =========== */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.icon-like:before {
-  content: "\e900";
-  color: #d75a4a;
 }
 
 .favorite-list-btn {

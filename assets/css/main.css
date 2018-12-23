@@ -26,6 +26,58 @@ input {
   input:focus {
     outline: none; }
 
+@font-face {
+  font-family: 'icomoon';
+  src: url("../font/icomoon.eot");
+  src: url("../font/icomoon.eot") format("embedded-opentype"), url("../font/icomoon.ttf") format("truetype"), url("../font/icomoon.woff") format("woff");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'ico';
+  src: url("../font/font2/icomoon.eot");
+  src: url("../font/font2/icomoon.eot") format("embedded-opentype"), url("../font/font2/icomoon.ttf") format("truetype"), url("../font/font2/icomoon.woff") format("woff");
+  font-weight: normal;
+  font-style: normal; }
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+.icon-like:before {
+  content: "\e900";
+  color: #d75a4a; }
+
+[class^="iconmo-"], [class*=" iconmo-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'ico' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+.iconmo-email:before {
+  content: "\e91d";
+  color: #989898; }
+
+.iconmo-password:before {
+  content: "\e965";
+  color: #cacaca; }
+
 .Header--01 {
   top: 0;
   left: 0;
@@ -568,6 +620,9 @@ input, input:before, input:after {
   .setting__content .setting__item.active .checkbox:before {
     display: block; }
 
+.setting__content .setting__alarm .input-group {
+  display: inline-block; }
+
 .setting__content .setting__alarm input[name="alarm-input"] {
   border: 1px solid #333;
   border-radius: 3px;
@@ -601,6 +656,13 @@ input, input:before, input:after {
     color: #fff;
     border-color: #b94f42; }
 
+@media screen and (max-width: 767px) {
+  .setting__content .setting__alarm .input-group {
+    display: block;
+    margin: 6px 0; }
+  .setting__content .setting__alarm input[name="alarm-submit"] {
+    margin-left: 0; } }
+
 .setting__content .checkbox {
   width: 20px;
   height: 20px;
@@ -626,7 +688,6 @@ input, input:before, input:after {
 #modalSetting,
 #modalFavoriteList {
   z-index: 99999;
-  border: 1px solid #666;
   top: 50%;
   right: 50%;
   position: fixed;
@@ -651,11 +712,11 @@ input, input:before, input:after {
   overflow-y: auto; }
   #modalSetting .modal-header,
   #modalFavoriteList .modal-header {
-    border-bottom: 1px solid #333;
     padding: 20px;
-    color: #333;
+    color: #fff;
     font-size: 1.125rem;
-    font-weight: bold; }
+    font-weight: bold;
+    background-color: #d75a4a; }
   #modalSetting .modal-body,
   #modalFavoriteList .modal-body {
     padding: 20px; }
@@ -693,30 +754,18 @@ input, input:before, input:after {
       -webkit-transform: translate(-50%, -50%) rotateZ(135deg);
       -ms-transform: translate(-50%, -50%) rotate(135deg);
       transform: translate(-50%, -50%) rotateZ(135deg); }
-
-@font-face {
-  font-family: 'icomoon';
-  src: url("../font/icomoon.eot");
-  src: url("../font/icomoon.eot") format("embedded-opentype"), url("../font/icomoon.ttf") format("truetype"), url("../font/icomoon.woff") format("woff");
-  font-weight: normal;
-  font-style: normal; }
-
-[class^="icon-"], [class*=" icon-"] {
-  /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'icomoon' !important;
-  speak: none;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1;
-  /* Better Font Rendering =========== */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale; }
-
-.icon-like:before {
-  content: "\e900";
-  color: #d75a4a; }
+  @media screen and (max-width: 767px) {
+    #modalSetting,
+    #modalFavoriteList {
+      width: 100%;
+      height: 100%;
+      max-height: 100%;
+      border-radius: 0;
+      right: 0;
+      top: 0;
+      -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+      transform: translate(0, 0); } }
 
 .favorite-list-btn {
   position: fixed;
@@ -866,3 +915,111 @@ input, input:before, input:after {
         position: absolute;
         width: auto;
         z-index: 1001; } }
+
+.auth-page {
+  min-height: 100vh;
+  background-color: #181a3a;
+  position: relative; }
+  .auth-page .logo {
+    position: relative;
+    z-index: 10;
+    background-color: #fff;
+    border-radius: 50%;
+    overflow: hidden;
+    width: 110px;
+    height: 110px;
+    display: inline-block;
+    padding: 15px;
+    border: 2px solid #d75a4a;
+    margin-bottom: 25px; }
+    .auth-page .logo img {
+      width: 100%; }
+  .auth-page .auth-login-content {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center; }
+  .auth-page .auth-form {
+    width: 275px; }
+    .auth-page .auth-form .title {
+      text-transform: uppercase;
+      color: #fff;
+      font-size: 30px;
+      font-weight: 500; }
+    .auth-page .auth-form .sub-title {
+      margin: 15px 0 26px;
+      height: 16px;
+      font-size: 14px;
+      color: #989898;
+      display: inline-block;
+      margin-top: 15px; }
+    .auth-page .auth-form .input-item {
+      position: relative;
+      margin-bottom: 20px; }
+      .auth-page .auth-form .input-item input {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        font-weight: 300;
+        height: 44.5px;
+        border: none;
+        outline: none;
+        background-color: #f0f0f0;
+        width: 100%;
+        display: inline-block;
+        border-radius: 74px;
+        padding-left: 40px; }
+      .auth-page .auth-form .input-item .font-icon {
+        top: 50%;
+        left: 13px;
+        position: absolute;
+        font-size: 17px;
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%); }
+  .auth-page .auth-button-01 {
+    width: 122px;
+    height: 35px;
+    border-radius: 30px;
+    background-color: #fa7300;
+    border: none;
+    outline: none;
+    color: white;
+    cursor: pointer;
+    letter-spacing: 1px;
+    font-weight: bold;
+    -webkit-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    line-height: 34px; }
+    .auth-page .auth-button-01:hover {
+      background-color: #da6400; }
+  .auth-page .register-suggest {
+    font-size: 14px;
+    color: #989898;
+    margin-top: 27px; }
+    .auth-page .register-suggest .link-suggest {
+      color: #fa7300;
+      font-weight: bold;
+      margin-left: 3px;
+      text-transform: uppercase; }
+  .auth-page .bg-01 {
+    z-index: 0;
+    opacity: 0.2;
+    background-color: transparent; }
+  @media screen and (min-width: 1200px) {
+    .auth-page .auth-login-content:after {
+      content: '';
+      display: table;
+      clear: both; }
+    .auth-page .logo {
+      display: inline-block;
+      margin-right: 150px;
+      vertical-align: middle;
+      width: 150px;
+      height: 150px; }
+    .auth-page .auth-form {
+      vertical-align: middle;
+      display: inline-block; } }

@@ -1,0 +1,135 @@
+.auth-page {
+  min-height: 100vh;
+  background-color: #181a3a;
+  position: relative;
+  
+
+  .logo {
+    position: relative;
+    z-index: 10;
+    background-color: #fff;
+    border-radius: 50%;
+    overflow: hidden;
+    width: 110px;
+    height: 110px;
+    display: inline-block;
+    padding: 15px;
+    border: 2px solid #d75a4a;
+    margin-bottom: 25px;
+
+    img {
+      // overflow: hidden;
+      width: 100%;
+    }
+  }
+
+  .auth-login-content {
+    @include absolute(50%, null, null, 50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
+  .auth-form {
+    width: 275px;
+    .title {
+      text-transform: uppercase;
+      color: #fff;
+      font-size: 30px;
+      font-weight: 500;
+    }
+
+    .sub-title {
+      margin: 15px 0 26px;
+      height: 16px;
+      font-size: 14px;
+      color: #989898;
+      display: inline-block;
+      margin-top: 15px;
+    }
+
+    .input-item {
+      position: relative;
+      margin-bottom: 20px;
+
+      input {
+        box-sizing: border-box;
+        font-weight: 300;
+        height: 44.5px;
+        border: none;
+        outline: none;
+        background-color: #f0f0f0;
+        width: 100%;
+        display: inline-block;
+        border-radius: 74px;
+        padding-left: 40px;
+      }
+
+      .font-icon {
+        @include absolute(50%, null, null, 13px);
+        font-size: 17px;
+        transform: translateY(-50%)
+      }
+    }
+  }
+
+  .auth-button-01 {
+    width: 122px;
+    height: 35px;
+    border-radius: 30px;
+    background-color: #fa7300;
+    border: none;
+    outline: none;
+    color: white;
+    cursor: pointer;
+    letter-spacing: 1px;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+    line-height: 34px;
+
+    &:hover {
+      background-color: #da6400;
+    }
+  }
+
+  .register-suggest {
+    font-size: 14px;
+    color: #989898;
+    margin-top: 27px;
+
+    .link-suggest {
+      color: #fa7300;
+      font-weight: bold;
+      margin-left: 3px;
+      text-transform: uppercase;
+    }
+  }
+
+  .bg-01 {
+    z-index: 0;
+    opacity: 0.2;
+    background-color: transparent;
+  }
+
+  @media screen and (min-width: 1200px) {
+    .auth-login-content {
+      &:after {
+        content: '';
+        display: table;
+        clear: both;
+      }
+    }
+
+    .logo {
+      display: inline-block;
+      margin-right: 150px;
+      vertical-align: middle;
+      width: 150px;
+      height: 150px;
+    }
+
+    .auth-form {
+      vertical-align: middle;
+      display: inline-block;
+    }
+  }
+}
