@@ -300,3 +300,107 @@ input, input:before, input:after {
     margin-left: 10px;
   }
 }
+
+.menu-wrapper {
+  $height: 70px;
+  $dis: 5px;
+  
+  @include fixed(0, 0, null, 0);
+  background-color: #222b33;
+  z-index: 10;
+  height: $height;
+
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  .logo {
+    margin-left: $dis;
+    float: left;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #fff;
+    height: $height - $dis*4;
+    padding: $dis;
+    margin-top: $dis;
+    position: relative;
+
+    img {
+      height: 100%;
+      vertical-align: middle;  
+    }
+
+    .text {
+      @include absolute(50%, null, null, calc(100% + 6px));
+      color: #fff;
+      transform: translateY(-50%);
+    }
+  }
+
+
+  .menu-01 {
+    float: right;
+    height: 100%;
+    font-size: 0;
+
+    .item {
+      display: inline-block;
+      background-color: #0a3e69;
+      vertical-align: top;
+      
+      &:not(:last-child) {
+        border-right: 1px solid #999;
+      }
+
+      a {
+        display: inline-block;
+        height: $height;
+        line-height: $height;
+        font-weight: 500;
+        padding: 0 30px;
+        color: #ccc;
+        font-size: 13px;
+        text-transform: uppercase;
+        border-top: 2px solid transparent;
+        transition: all 0.3s ease-in-out;
+        box-sizing: border-box;
+
+        &:hover {
+          border-color: #128ff3;
+        }     
+      }
+
+      &.account-item {
+        .item {
+          position: relative;
+          vertical-align: top;
+          
+          &.upload-item {
+            position: relative;
+            height: 70px;
+            width: 110px;
+          }
+        }
+
+        #music-file {
+          visibility: hidden;
+          @include absolute(0, 0, 0, 0);
+          opacity: 0;
+        }
+
+        #music-label {
+          cursor: pointer;
+          @include absolute(0, 0, 0, 0);
+          line-height: 70px;
+          padding: 0 10px;
+          font-size: 16px;
+          color: #ccc;
+          display: inline-block;
+          position: relative;
+        }
+      }
+    }
+  }
+}

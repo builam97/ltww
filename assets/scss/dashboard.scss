@@ -1,5 +1,5 @@
 .Dashboard-01 {
-  @include fixed(0, 0, 0, 0);
+  @include fixed(70px, 0, 0, 0);
 
   @include media('>=992px') {
     width: 85%;
