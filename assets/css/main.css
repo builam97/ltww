@@ -341,6 +341,95 @@ input, input:before, input:after {
     display: inline-block;
     margin-left: 10px; } }
 
+.menu-wrapper {
+  top: 0;
+  left: 0;
+  right: 0;
+  position: fixed;
+  background-color: #222b33;
+  z-index: 10;
+  height: 70px; }
+  .menu-wrapper:after {
+    content: "";
+    display: table;
+    clear: both; }
+  .menu-wrapper .logo {
+    margin-left: 5px;
+    float: left;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #fff;
+    height: 50px;
+    padding: 5px;
+    margin-top: 5px;
+    position: relative; }
+    .menu-wrapper .logo img {
+      height: 100%;
+      vertical-align: middle; }
+    .menu-wrapper .logo .text {
+      top: 50%;
+      left: calc(100% + 6px);
+      position: absolute;
+      color: #fff;
+      -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%); }
+  .menu-wrapper .menu-01 {
+    float: right;
+    height: 100%;
+    font-size: 0; }
+    .menu-wrapper .menu-01 .item {
+      display: inline-block;
+      background-color: #0a3e69;
+      vertical-align: top; }
+      .menu-wrapper .menu-01 .item:not(:last-child) {
+        border-right: 1px solid #999; }
+      .menu-wrapper .menu-01 .item a {
+        display: inline-block;
+        height: 70px;
+        line-height: 70px;
+        font-weight: 500;
+        padding: 0 30px;
+        color: #ccc;
+        font-size: 13px;
+        text-transform: uppercase;
+        border-top: 2px solid transparent;
+        -webkit-transition: all 0.3s ease-in-out;
+        -o-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box; }
+        .menu-wrapper .menu-01 .item a:hover {
+          border-color: #128ff3; }
+      .menu-wrapper .menu-01 .item.account-item .item {
+        position: relative;
+        vertical-align: top; }
+        .menu-wrapper .menu-01 .item.account-item .item.upload-item {
+          position: relative;
+          height: 70px;
+          width: 110px; }
+      .menu-wrapper .menu-01 .item.account-item #music-file {
+        visibility: hidden;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        position: absolute;
+        opacity: 0; }
+      .menu-wrapper .menu-01 .item.account-item #music-label {
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        position: absolute;
+        line-height: 70px;
+        padding: 0 10px;
+        font-size: 16px;
+        color: #ccc;
+        display: inline-block;
+        position: relative; }
+
 .bg-01 {
   top: 0;
   left: 0;
@@ -862,7 +951,7 @@ input, input:before, input:after {
     background-color: #ddd; }
 
 .Dashboard-01 {
-  top: 0;
+  top: 70px;
   left: 0;
   right: 0;
   bottom: 0;
