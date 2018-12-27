@@ -930,23 +930,21 @@ input, input:before, input:after {
       min-width: 65px;
       border-radius: 50%;
       background-color: #ddd; }
-  .TrackItem .textbox {
-    padding-left: 90px; }
-    .TrackItem .textbox * {
-      -webkit-user-select: none;
-      /* Safari 3.1+ */
-      -moz-user-select: none;
-      /* Firefox 2+ */
-      -ms-user-select: none;
-      /* IE 10+ */
-      user-select: none;
-      /* Standard syntax */ }
-    .TrackItem .textbox .title {
-      font-weight: 600;
-      margin-bottom: 7px;
-      font-size: 14px; }
-    .TrackItem .textbox .author {
-      font-size: 12px; }
+  .TrackItem .textbox * {
+    -webkit-user-select: none;
+    /* Safari 3.1+ */
+    -moz-user-select: none;
+    /* Firefox 2+ */
+    -ms-user-select: none;
+    /* IE 10+ */
+    user-select: none;
+    /* Standard syntax */ }
+  .TrackItem .textbox .title {
+    font-weight: 600;
+    margin-bottom: 7px;
+    font-size: 14px; }
+  .TrackItem .textbox .author {
+    font-size: 12px; }
   .TrackItem.active {
     background-color: #ddd; }
 
@@ -1004,6 +1002,95 @@ input, input:before, input:after {
         position: absolute;
         width: auto;
         z-index: 1001; } }
+
+.Dashboard-02 {
+  background-color: #dfdfdf;
+  margin-top: 70px; }
+  .Dashboard-02 .content {
+    font-size: 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: calc(100vh - 70px);
+    background-color: #fff;
+    position: relative; }
+  .Dashboard-02 .main-content > .title {
+    color: #1ea1f2;
+    font-size: 28px;
+    text-align: center;
+    font-weight: 400;
+    margin-bottom: 30px; }
+  .Dashboard-02 .menu-sidebar-wrapper {
+    display: inline-block;
+    padding: 30px 15px;
+    width: 20%;
+    font-size: 16px;
+    vertical-align: top;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    position: absolute; }
+    .Dashboard-02 .menu-sidebar-wrapper .account {
+      padding-bottom: 10px;
+      border-bottom: 1px solid #ccc; }
+      .Dashboard-02 .menu-sidebar-wrapper .account .user-images-wrapper {
+        display: inline-block;
+        width: 64px;
+        vertical-align: middle; }
+        .Dashboard-02 .menu-sidebar-wrapper .account .user-images-wrapper img {
+          width: 100%; }
+      .Dashboard-02 .menu-sidebar-wrapper .account .user-infor {
+        display: inline-block;
+        vertical-align: middle;
+        font-weight: 500;
+        color: #333; }
+    .Dashboard-02 .menu-sidebar-wrapper .menu-sidebar li a {
+      color: #333;
+      font-weight: 500;
+      display: block;
+      padding: 10px 15px;
+      border-bottom: 1px solid #ccc;
+      -webkit-transition: all 0.3s ease-in-out;
+      -o-transition: all 0.3s ease-in-out;
+      transition: all 0.3s ease-in-out; }
+      .Dashboard-02 .menu-sidebar-wrapper .menu-sidebar li a.active, .Dashboard-02 .menu-sidebar-wrapper .menu-sidebar li a:hover {
+        background-color: #1ea1f2;
+        color: #fff; }
+  .Dashboard-02 .main-content {
+    padding: 30px 0;
+    display: inline-block;
+    width: 80%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin-left: 20%;
+    font-size: 14px;
+    vertical-align: top;
+    padding: 30px; }
+    .Dashboard-02 .main-content .favourite-list .item {
+      position: relative;
+      -webkit-transition: all 0.3s ease-in-out;
+      -o-transition: all 0.3s ease-in-out;
+      transition: all 0.3s ease-in-out; }
+      .Dashboard-02 .main-content .favourite-list .item:hover {
+        background-color: #eee; }
+      .Dashboard-02 .main-content .favourite-list .item .Track-edit {
+        top: 50%;
+        right: 15px;
+        position: absolute;
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%); }
+    .Dashboard-02 .main-content .favourite-list .TrackItem {
+      padding: 12px 15px; }
+  .Dashboard-02 .btn-remove {
+    cursor: pointer;
+    color: #fff;
+    background-color: #1ea1f2;
+    font-size: 14px;
+    padding: 6px 15px;
+    border: none;
+    border-radius: 3px; }
 
 .auth-page {
   min-height: 100vh;

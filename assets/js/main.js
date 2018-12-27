@@ -171,11 +171,13 @@ let searchTrackByKey = (text)=>{
        // html += '<li class="item"><span href="#" class="suggestText" onclick="clickTrackSuggest">'+element.title+'</span></li>';
        html +=  '<li class="item">\
               <div class="TrackItem " data-trackIndex="'+index+'">\
-                <div class="media-wrapper">\
-                  <img src="' + element.user.avatar_url + '" alt="'+element.user.username+'" />\
+                <div class="textbox">\  
+                  <div class="media-wrapper">\
+                    <img src="' + element.user.avatar_url + '" alt="'+element.user.username+'" />\
+                  </div>\
+                  <p class="title">'+element.title+'</p>\
+                  <p class="author">'+element.user.username+'</p>\
                 </div>\
-                <p class="title">'+element.title+'</p>\
-                <p class="author">'+element.user.username+'</p>\
               </div>\
             </li>'
     });
