@@ -354,7 +354,7 @@
 }
 
 #modalSetting,
-#modalFavoriteList {
+#modalUpload {
   z-index: 99999;
   @include modal-01(60%, auto);
   min-height: 300px;
@@ -402,4 +402,123 @@
   &.like .icon-like:before {
     color: #d75a4a;
   }
+
+  textarea {
+    resize: none;
+    padding: 8px 15px;
+  }
+}
+
+#modalUpload {
+  max-width: 700px;
+  .input-item {
+    margin-bottom: 23px;
+    .desc {
+      color: #333;
+      font-size: 15px;
+      font-weight: 500;
+      display: block;
+      margin-bottom: 5px;
+      box-sizing: border-box;
+    }
+
+    .input-song-name {
+      border: 1px solid #999;
+      padding: 6px 10px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .file-upload__file-label {
+      position: relative;
+      display: block;
+      border: 1px dotted #999;
+      width: 90px;
+      height: 90px;
+      cursor: pointer;
+
+      &:before {
+        content: 'Click Me !';
+        @include absolute(50%, 50%);
+        transform: translate(50%, -50%);
+        color: #999;
+      }
+
+      input {
+        @include absolute(0, 0);
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    select {
+      border: 1px solid #777;
+      border-radius: 0px;
+      padding: 3px 40px 3px 5px;
+      
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      appearance: none;
+      position: relative;
+      font-size: 15px;
+      background: #fff url("http://i68.tinypic.com/9t3d3d.png ") no-repeat 95% 50%;
+
+      &:before {
+        content: '';
+        display: block;
+        @include absolute(50%, 5px);
+        transform: translateY(-50%);
+      }
+    }
+  }
+
+  .upload-form:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+
+  .upload-form {
+
+  }
+
+  .left-content {
+    float: left;
+    width: 50%;
+    padding-right: 50px;
+    box-sizing: border-box;
+  }
+
+  .right-content {
+    float: right;
+    width: 50%;
+    margin-bottom: 2-px;
+  }
+
+  textarea {
+    padding: 15px;
+  }
+
+  .file-upload__button {
+      background-color: #fff;
+     border: 1px solid #d75a4a;
+     padding: 5px 17px;
+     clear: both;
+     text-align: center;
+     display: inline-block;
+     padding-: 12px 50px;
+     margin-top: 30px;
+     font-size: 16px;
+    background-color: #d75a4a;
+    transition: all 0.3s ease-in-out;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .btn-wrapper  {
+    text-align: center;
+    clear: both;
+    display: block;
+  }
+
 }

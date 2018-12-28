@@ -50,7 +50,9 @@ window.addEventListener('DOMContentLoaded', function(){
       pause_or_play_btn = document.getElementById('pause_or_play_btn'),
       speaker_volume = document.getElementById('speaker-volume'),
       speaker_progress = document.getElementById('speakerProgress'),
-      favoriteListBtn = document.getElementById('favoriteListBtn')
+      favoriteListBtn = document.getElementById('favoriteListBtn'),
+      upload_link = document.getElementById('upload_link'),
+      modal_upload = document.getElementById('modalUpload')
       ;
 
   // console.log(speaker_volume.getBoundingClientRect().y);
@@ -168,18 +170,17 @@ let searchTrackByKey = (text)=>{
     SClistTrack = tracks;
     var html ='';
     tracks.forEach((element, index) => {
-       // html += '<li class="item"><span href="#" class="suggestText" onclick="clickTrackSuggest">'+element.title+'</span></li>';
-       html +=  '<li class="item">\
-              <div class="TrackItem " data-trackIndex="'+index+'">\
-                <div class="textbox">\  
-                  <div class="media-wrapper">\
-                    <img src="' + element.user.avatar_url + '" alt="'+element.user.username+'" />\
-                  </div>\
-                  <p class="title">'+element.title+'</p>\
-                  <p class="author">'+element.user.username+'</p>\
-                </div>\
-              </div>\
-            </li>'
+      html +=  '<li class="item">\
+        <div class="TrackItem " data-trackIndex="'+index+'">\
+          <div class="textbox">\
+            <div class="media-wrapper">\
+              <img src="' + element.user.avatar_url + '" alt="'+element.user.username+'" />\
+            </div>\
+            <p class="title">'+element.title+'</p>\
+            <p class="author">'+element.user.username+'</p>\
+          </div>\
+        </div>\
+      </li>'
     });
    var searchresult = $('#listMusic').html(html);
   });
@@ -479,7 +480,12 @@ $(inputSearch).focusin(function(event) {
       speakerProgress.style.top = volume_posY + '%';
       window.sound.setVolume( (100 - volume_posY)*0.01 );
     }
-  })
+  });
+
+  $(upload_link).on('click', function(event) {
+    event.preventDefault();
+    $(modal_upload).addClass('show');
+  });
 
 
   // handle document click
