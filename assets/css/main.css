@@ -896,6 +896,7 @@ input, input:before, input:after {
 #modalUpload {
   max-width: 700px; }
   #modalUpload .input-item {
+    position: relative;
     margin-bottom: 23px; }
     #modalUpload .input-item .desc {
       color: #333;
@@ -911,22 +912,41 @@ input, input:before, input:after {
       width: 100%;
       -webkit-box-sizing: border-box;
       box-sizing: border-box; }
+    #modalUpload .input-item .err {
+      top: 0;
+      right: 0;
+      position: absolute;
+      text-align: right;
+      color: red;
+      font-size: 13px;
+      opacity: 0;
+      visibility: hidden;
+      -webkit-transition: all 0.3s ease-in-out;
+      -o-transition: all 0.3s ease-in-out;
+      transition: all 0.3s ease-in-out; }
+      #modalUpload .input-item .err.show {
+        opacity: 1;
+        visibility: visible; }
     #modalUpload .input-item .file-upload__file-label {
       position: relative;
       display: block;
-      border: 1px dotted #999;
-      width: 90px;
       height: 90px;
-      cursor: pointer; }
-      #modalUpload .input-item .file-upload__file-label:before {
-        content: 'Click Me !';
+      width: 100%;
+      cursor: pointer;
+      border: 1px dotted #999; }
+      #modalUpload .input-item .file-upload__file-label .name {
         top: 50%;
         right: 50%;
         position: absolute;
         -webkit-transform: translate(50%, -50%);
         -ms-transform: translate(50%, -50%);
         transform: translate(50%, -50%);
-        color: #999; }
+        width: 100%;
+        -o-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        text-align: center; }
       #modalUpload .input-item .file-upload__file-label input {
         top: 0;
         right: 0;
@@ -937,6 +957,7 @@ input, input:before, input:after {
       border: 1px solid #777;
       border-radius: 0px;
       padding: 3px 40px 3px 5px;
+      cursor: pointer;
       -moz-appearance: none;
       -webkit-appearance: none;
       appearance: none;
@@ -952,7 +973,7 @@ input, input:before, input:after {
         -webkit-transform: translateY(-50%);
         -ms-transform: translateY(-50%);
         transform: translateY(-50%); }
-  #modalUpload .upload-form:after {
+  #modalUpload .upload-form-01:after {
     content: '';
     display: table;
     clear: both; }
@@ -967,11 +988,17 @@ input, input:before, input:after {
     width: 50%;
     margin-bottom: 2-px; }
   #modalUpload textarea {
-    padding: 15px; }
+    height: 191px;
+    width: 100%;
+    resize: none;
+    padding: 15px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box; }
   #modalUpload .file-upload__button {
     background-color: #fff;
     border: 1px solid #d75a4a;
-    padding: 5px 17px;
+    padding: 7px 17px;
+    border-radius: 3px;
     clear: both;
     text-align: center;
     display: inline-block;
