@@ -412,6 +412,7 @@
 #modalUpload {
   max-width: 700px;
   .input-item {
+    position: relative;
     margin-bottom: 23px;
     .desc {
       color: #333;
@@ -422,6 +423,7 @@
       box-sizing: border-box;
     }
 
+
     .input-song-name {
       border: 1px solid #999;
       padding: 6px 10px;
@@ -429,19 +431,37 @@
       box-sizing: border-box;
     }
 
+    .err {
+      @include absolute(0, 0);
+      text-align: right;
+      color: red;
+      font-size: 13px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease-in-out;
+
+      &.show {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+
     .file-upload__file-label {
       position: relative;
       display: block;
-      border: 1px dotted #999;
-      width: 90px;
       height: 90px;
+      width: 100%;
       cursor: pointer;
+      border: 1px dotted #999;
 
-      &:before {
-        content: 'Click Me !';
+      .name {
         @include absolute(50%, 50%);
         transform: translate(50%, -50%);
-        color: #999;
+        width: 100%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        text-align: center;
       }
 
       input {
@@ -455,7 +475,7 @@
       border: 1px solid #777;
       border-radius: 0px;
       padding: 3px 40px 3px 5px;
-      
+      cursor: pointer;
       -moz-appearance: none;
       -webkit-appearance: none;
       appearance: none;
@@ -472,14 +492,10 @@
     }
   }
 
-  .upload-form:after {
+  .upload-form-01:after {
     content: '';
     display: table;
     clear: both;
-  }
-
-  .upload-form {
-
   }
 
   .left-content {
@@ -496,19 +512,24 @@
   }
 
   textarea {
+    height: 191px;
+    width: 100%;
+    resize: none;
     padding: 15px;
+    box-sizing: border-box;
   }
 
   .file-upload__button {
-      background-color: #fff;
-     border: 1px solid #d75a4a;
-     padding: 5px 17px;
-     clear: both;
-     text-align: center;
-     display: inline-block;
-     padding-: 12px 50px;
-     margin-top: 30px;
-     font-size: 16px;
+    background-color: #fff;
+    border: 1px solid #d75a4a;
+    padding: 7px 17px;
+    border-radius: 3px;
+    clear: both;
+    text-align: center;
+    display: inline-block;
+    padding-: 12px 50px;
+    margin-top: 30px;
+    font-size: 16px;
     background-color: #d75a4a;
     transition: all 0.3s ease-in-out;
     color: #fff;

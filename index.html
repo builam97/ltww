@@ -89,6 +89,14 @@
 
               <!-- { eleLoad } -->
             </div>
+
+            <div class="lyric" id="lyric">
+              <p class="lyric__name">Unknow</p>
+              <span class="lyric__author">Unknow</span>
+              <div class="lyric__text">
+                
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -111,6 +119,7 @@
         <div class="pagination-01">
           <span class="bullet" id="list-track-bullet"></span>
           <span class="bullet active" id="home-bullet"></span>
+          <span class="bullet" id="lyric-bullet"></span>
         </div>
 
         <div class="play-view__control" id="play-view__control">
@@ -141,17 +150,14 @@
             <!-- volume control -->
             <div class="speaker-button" id="speaker-button">
               <img src="assets/images/speaker.png" alt="volume">
-              <!-- <img src="assets/images/speaker.png" alt="volume"  onclick="volumeFunc"> -->
               
-              <!-- <v-touch @tap="tap_volumeFunc" @panmove="panmove"> -->
-                <div class="speaker-volume" id="speaker-volume">
-                  <div class="speaker__progress" id="speakerProgress"></div>
-                  <div class="speaker__progress-ball" id="ballVolume">
-                    <span class="speaker__progress-ball-content">
-                    </span>
-                  </div>
-                </div> 
-              <!-- </v-touch> -->
+              <div class="speaker-volume" id="speaker-volume">
+                <div class="speaker__progress" id="speakerProgress"></div>
+                <div class="speaker__progress-ball" id="ballVolume">
+                  <span class="speaker__progress-ball-content">
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -168,9 +174,9 @@
         <img src="assets/images/cog.png" alt="setting">
       </div>
 
-      <div class="favorite-list-btn" id="favoriteListBtn">
+<!--       <div class="favorite-list-btn" id="favoriteListBtn">
         <img src="assets/images/home.png" alt="liked">
-      </div>
+      </div> -->
 
       <div class="modal-01" id="modalSetting">
         <div class="modal-header">
@@ -212,19 +218,31 @@
           <div class="close-btn"></div>
         </div>
         <div class="modal-body">
-          <form action="" class="upload-form">
+          <form action="/login.html" class="upload-form-01">
             <div class="left-content">
               <div class="input-item">
                 <label for="file-upload__name" class="desc">
                   Tên bài hát
                 </label>
-                <input type="text" name="" id="file-upload__name" class="input-song-name">
+                <span class="err">* Trường này bắt buộc phải nhập</span>
+                <input type="text" name="" id="file-upload__name" class="input-song-name" required="">
+              </div>
+
+              <div class="input-item">
+                <span class="desc">Định dạng nhạc</span>
+                <select name="extendFile" id="">
+                  <option value="mp3" selected>MP3</option>
+                  <option value="wav">WAV</option>
+                  <option value="flac">FLAC</option>
+                  <option value="ape">APE</option>
+                </select>
               </div>
 
               <div class="input-item">
                 <span class="desc">Chọn file</span>
                 <label for="file-upload__file" class="file-upload__file-label">
-                 <input type="file" name="" id="file-upload__file">
+                  <span class="name">Click me!</span>
+                 <input type="file" name="" id="file-upload__file" required="">
                 </label>
               </div>
             </div>
@@ -233,17 +251,17 @@
               <div class="input-item">
                 <span class="desc">Chọn chất lượng nhạc</span>
                 <select name="quality" id="">
-                  <option value="128">128</option>
+                  <option value="128" selected>128</option>
                   <option value="164">164</option>
                   <option value="320">320</option>
                 </select>
               </div>
               
-              <textarea name="" id="" cols="30" rows="10" placeholder="Nhập lời bài hát ... "></textarea>
+              <textarea name="" id="" cols="30" rows="10" placeholder="Nhập lời bài hát ... " class="file-upload__lyric"></textarea>
             </div> 
 
             <div class="btn-wrapper">
-              <button class="file-upload__button">Upload</button>
+              <button class="file-upload__button" id="submit-upload-music">Upload</button>
             </div>
           </form>
         </div>
