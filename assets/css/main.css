@@ -225,6 +225,49 @@ input, input:before, input:after {
     .search-result .item:nth-child(even) {
       background-color: #efefef; }
 
+.lyric {
+  padding: 15px;
+  background-color: #fff;
+  top: 73px;
+  left: 0;
+  right: 0;
+  position: fixed;
+  overflow-y: auto;
+  -webkit-transform: translateX(100%);
+  -ms-transform: translateX(100%);
+  transform: translateX(100%);
+  -webkit-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  text-align: center;
+  min-height: calc(100vh - 261px);
+  opacity: 0;
+  visibility: hidden;
+  overflow-y: auto; }
+  .lyric.show {
+    -webkit-transform: translateX(0);
+    -ms-transform: translateX(0);
+    transform: translateX(0);
+    opacity: 1;
+    visibility: visible; }
+  .lyric .lyric__name {
+    font-weight: 400;
+    color: #333;
+    margin-bottom: 4px;
+    font-size: 15px; }
+  .lyric .lyric__author {
+    font-size: 13px;
+    color: #555;
+    display: inline-block; }
+  .lyric .lyric__text {
+    font-size: 14px;
+    color: #333;
+    margin-top: 20px; }
+  @media screen and (min-width: 992px) {
+    .lyric {
+      width: 80%;
+      margin: 0 auto; } }
+
 .listTrack--wrapper {
   padding: 15px;
   background-color: #fff;
@@ -232,7 +275,7 @@ input, input:before, input:after {
   left: 0;
   right: 0;
   position: fixed;
-  max-height: calc(100% - 261px);
+  min-height: calc(100% - 261px);
   overflow-y: auto;
   -webkit-transform: translateX(-100%);
   -ms-transform: translateX(-100%);
@@ -444,7 +487,7 @@ input, input:before, input:after {
   text-align: center;
   padding: 0 20%;
   max-width: 375px;
-  margin: 90px auto 30px; }
+  margin: 30px auto; }
   .play-view__image-wrapper .play-view__image {
     width: 60%;
     max-width: 375px;
