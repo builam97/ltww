@@ -662,7 +662,8 @@ $(inputSearch).focusin(function(event) {
       $('.Header--01').addClass('invi');
       $('.pagination-01').addClass('invi');
       $('#settingBtn').addClass('invi');
-      $('.play-view').addClass('play-view-show');
+      $('.play-view-infor-wrapper').addClass('invi');
+      $('.control-main-wrapper').addClass('play-view-show');
     }
     if (event.keyCode === 50) {
       var elem = document.documentElement;
@@ -671,7 +672,8 @@ $(inputSearch).focusin(function(event) {
       $('.Header--01').removeClass('invi');
       $('.pagination-01').removeClass('invi');
       $('#settingBtn').removeClass('invi');
-      $('.play-view').removeClass('play-view-show');
+      $('.play-view-infor-wrapper').removeClass('invi');
+      $('.control-main-wrapper').removeClass('play-view-show');
     }
   });
 

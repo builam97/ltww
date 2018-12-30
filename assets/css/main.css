@@ -47,6 +47,9 @@ input {
 .play-view-show {
   visibility: visible !important;
   opacity: 1 !important;
+  right: 0;
+  bottom: 0;
+  width: 375px;
   position: fixed !important; }
 
 [class^="icon-"], [class*=" icon-"] {
