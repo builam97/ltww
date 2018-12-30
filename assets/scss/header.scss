@@ -382,7 +382,38 @@ input, input:before, input:after {
       transform: translateY(-50%);
     }
   }
+  
+  .trigger {
+    display: none;
 
+    @media screen and (max-width: 992px) {
+      display: block;
+      width: 70px;
+      height: 70px;
+      @include absolute(0, 0);
+      transition: all 0.3s ease-in-out;
+      line-height: 88px;
+      cursor: pointer;
+      text-align: center;
+
+      img {
+        width: 30px;
+      }
+
+      &.active {
+        background-color: #0a3e69;
+      }
+    }
+  }
+
+  @media screen and (max-width: 992px) {
+    transform: translateY(-100%);
+    transition: all 0.3s ease-in-out;
+
+    &.show {
+      transform: translateY(0);
+    }
+  }
 
   .menu-01 {
     float: right;
@@ -446,5 +477,36 @@ input, input:before, input:after {
         }
       }
     }
+
+    @media screen and (max-width: 992px) {
+      @include fixed(70px, 0, null, 0);
+      padding: 0 calc(100% - 400px);
+      transform: translateX(102%);
+      transition: all 0.3s ease-in-out;
+
+      .item {
+        display: block;
+        width: 100%;
+      }
+
+      a {
+        width: 100%;
+      }
+
+      form {
+        width: 100%;
+        padding: 0 20px;
+      }
+
+      &.show {
+        transform: translateX(0);
+      }
+    }
+  }
+}
+
+.menu-wrapper-02 {
+  @media screen and (max-width: 992px) {
+    transform: translateY(0) !important;
   }
 }

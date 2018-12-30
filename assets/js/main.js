@@ -4,12 +4,16 @@ var globalEvent = {
   touch : false,
   swipeLeft: false,
   swipeRight: false,
+  swipeDown: false,
+  swipeUp: false,
   clickBallVolume: false,
 
   reset : function(){
     this.touch = false;
     this.swipeLeft = false;
     this.swipeRight = false;
+    this.swipeDown = false;
+    this.swipeUp = false;
   }
 }
 
@@ -22,8 +26,22 @@ var mouseObject = {
     this.posY = y;
   },
 
-  isSwipeLeft : function(x){ return x < (this.posX - 70) ? true : false},
-  isSwipeRight : function(x){ return x > (this.posX + 70 ) ? true : false},
+  isSwipeLeft : function(x){ 
+    if ( this.posX ) { return x < (this.posX - 70) ? true : false}
+    else { return false}
+  },
+  isSwipeRight : function(x){
+    if (this.posX) {return x > (this.posX + 70 ) ? true : false}
+    else {return false}
+  },
+  isSwipeDown : function(y) {
+    if (this.posY) {return y > (this.posY + 100) ? true : false }
+    else {return false}
+  },
+  isSwipeUp : function(y) {
+    if (this.posY) {return y < (this.posY - 100) ? true : false }
+    else {return false}
+  },
 }
 
 document.addEventListener('mouseup', function(){
@@ -55,9 +73,9 @@ window.addEventListener('DOMContentLoaded', function(){
       upload_link = document.getElementById('upload_link'),
       modal_upload = document.getElementById('modalUpload')
       ;
-  var indexSwiper = 1;
+  var indexSwiper = 0;
   // console.log(speaker_volume.getBoundingClientRect().y);
-  let speaker_volume_posY = speaker_volume.getBoundingClientRect().y,
+  var speaker_volume_posY = speaker_volume.getBoundingClientRect().y,
       volume_posY = 50;
 
   const self = this;
@@ -352,24 +370,45 @@ $(inputSearch).focusin(function(event) {
 
   // handle listTrack event show & hide on mobile
   const dashBoard = document.getElementsByClassName('Dashboard-01')[0];
-  dashBoard.addEventListener("touchstart", function(e){
+  window.addEventListener("touchstart", function(e){
     let touches = e.changedTouches;
     mouseObject.setCurrentPos( touches[0].pageX, touches[0].pageY );
   });
 
-  dashBoard.addEventListener("touchmove", function(e){
+  window.addEventListener("touchmove", function(e){
   })
 
-  dashBoard.addEventListener("touchend", function(e){
+  window.addEventListener("touchend", function(e){
     let touches = e.changedTouches;
-    if ( mouseObject.isSwipeLeft( touches[0].pageX, touches[0].pageY) ){
+    console.log(mouseObject.posY + "posY", touches[0].pageY + "end Y");
+    if ( mouseObject.isSwipeLeft( touches[0].pageX)){
       globalEvent.swipeLeft = true;
       console.log("swipeLeft");
     }
 
-    if ( mouseObject.isSwipeRight(touches[0].pageX, touches[0].pageY) ) {
+    if ( mouseObject.isSwipeRight(touches[0].pageX) ) {
       globalEvent.swipeRight = true;
       console.log("swipeRight");
+    }
+
+    if (mouseObject.isSwipeDown(touches[0].pageY )) {
+      globalEvent.swipeDown = true;
+      console.log('swiperDown');
+    }
+
+    if (mouseObject.isSwipeUp(touches[0].pageY )) {
+      globalEvent.swiperUp = true;
+      console.log('swiperUp');
+    }
+
+    // control display menu
+    if (globalEvent.swipeDown) {
+      $('.menu-wrapper').addClass('show');
+      console.log('hello');
+    } else if (globalEvent.swiperUp) {
+      $('.menu-wrapper').removeClass('show');
+      $('.menu-01').removeClass('show');
+      $('.trigger').removeClass('active');
     }
 
     // handle show list track
@@ -377,7 +416,8 @@ $(inputSearch).focusin(function(event) {
       indexSwiper+=1;
       indexSwiper%=3;
       
-    } else if (globalEvent.swipeLeft) {
+    }
+    if (globalEvent.swipeLeft) {
       indexSwiper -=1;
       if (indexSwiper < 0) {
         indexSwiper = 2;
@@ -408,19 +448,21 @@ $(inputSearch).focusin(function(event) {
   });
 
   // handle swiper on desktop
-  dashBoard.addEventListener('mousedown', function(e){
+  window.addEventListener('mousedown', function(e){
     mouseObject.setCurrentPos( e.pageX, e.pageY );
     console.log(e.pageX, e.pageY);
   })
 
-  dashBoard.addEventListener('mouseup', function(e){
+  window.addEventListener('mouseup', function(e){
     // mouseObject.setCurrentPos( e.pageX, e.pageY );
     if (mouseObject.isSwipeRight(e.pageX, e.pageY)) {
       globalEvent.swipeRight = true;
+      console.log("swipeRight");
     }
 
     if(mouseObject.isSwipeLeft(e.pageX, e.pageY)) {
       globalEvent.swipeLeft = true;
+      console.log("swipeLeft");
     };
 
     // handle show list track
@@ -585,7 +627,60 @@ $(inputSearch).focusin(function(event) {
     return changeValidateInput();
   }
 
-  
+  // FULL SCREEN
+  function openFullscreen(elem) {
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.mozRequestFullScreen) { /* Firefox */
+      elem.mozRequestFullScreen();
+    } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+      elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE/Edge */
+      elem.msRequestFullscreen();
+    }
+  }
+
+  /* Close fullscreen */
+  function closeFullscreen(elem) {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.mozCancelFullScreen) { /* Firefox */
+      document.mozCancelFullScreen();
+    } else if (document.webkitExitFullscreen) { /* Chrome, Safari and Opera */
+      document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) { /* IE/Edge */
+      document.msExitFullscreen();
+    }
+  }
+
+  $(document).on('keyup', function(event) {
+    event.preventDefault();
+    if (event.keyCode === 49) {
+      var elem = document.documentElement;
+      openFullscreen(elem);
+      $('.menu-wrapper').addClass('invi');
+      $('.Header--01').addClass('invi');
+      $('.pagination-01').addClass('invi');
+      $('#settingBtn').addClass('invi');
+      $('.play-view-infor-wrapper').addClass('invi');
+      $('.control-main-wrapper').addClass('play-view-show');
+    }
+    if (event.keyCode === 50) {
+      var elem = document.documentElement;
+      closeFullscreen(elem);
+      $('.menu-wrapper').removeClass('invi');
+      $('.Header--01').removeClass('invi');
+      $('.pagination-01').removeClass('invi');
+      $('#settingBtn').removeClass('invi');
+      $('.play-view-infor-wrapper').removeClass('invi');
+      $('.control-main-wrapper').removeClass('play-view-show');
+    }
+  });
+
+  $('.trigger').click(function(event) {
+    $(this).toggleClass('active');
+    $('.menu-01').toggleClass('show');
+  });
 
   // handle document click
   document.addEventListener('click', function(e){
