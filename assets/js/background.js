@@ -125,3 +125,6 @@ let bg = {
 }
 
 bg.start();
+window.onresize = function(event) {
+    bg.start();
+};

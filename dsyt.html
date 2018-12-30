@@ -14,10 +14,14 @@
 </head>
 <body>
   <div id="app">
-    <nav class="menu-wrapper">
+    <nav class="menu-wrapper menu-wrapper-02">
       <div class="logo">
         <img src="assets/images/bee.png" alt="Bee music">
         <span class="text">Bee Music</span>
+      </div>
+
+      <div class="trigger">
+        <img src="assets/images/menu.png" alt="trigger">
       </div>
 
       <ul class="menu-01">
@@ -42,10 +46,11 @@
               </li>
 
               <li class="item upload-item">
-                <form action="">
+                <!-- <form action="">
                   <input type="file" name="" id="music-file">
                   <label id="music-label" for="music-file">Upload nhạc</label>
-                </form>
+                </form> -->
+                <a href="#" id="upload_link">Upload nhạc</a>
               </li>
             </ul>
           </div>
@@ -112,13 +117,65 @@
           </ul>
         </div>
       </div>
+
+      <div class="modal-01" id="modalUpload">
+        <div class="modal-header">
+          <p class="modal__title">Tải nhạc lên website</p>
+          <div class="close-btn"></div>
+        </div>
+        <div class="modal-body">
+          <form action="/login.html" class="upload-form-01">
+            <div class="left-content">
+              <div class="input-item">
+                <label for="file-upload__name" class="desc">
+                  Tên bài hát
+                </label>
+                <span class="err">* Trường này bắt buộc phải nhập</span>
+                <input type="text" name="" id="file-upload__name" class="input-song-name" required="">
+              </div>
+
+              <div class="input-item">
+                <span class="desc">Định dạng nhạc</span>
+                <select name="extendFile" id="">
+                  <option value="mp3" selected>MP3</option>
+                  <option value="wav">WAV</option>
+                  <option value="flac">FLAC</option>
+                  <option value="ape">APE</option>
+                </select>
+              </div>
+
+              <div class="input-item">
+                <span class="desc">Chọn file</span>
+                <label for="file-upload__file" class="file-upload__file-label">
+                  <span class="name">Click me!</span>
+                 <input type="file" name="" id="file-upload__file" required="">
+                </label>
+              </div>
+            </div>
+            
+            <div class="right-content">
+              <div class="input-item">
+                <span class="desc">Chọn chất lượng nhạc</span>
+                <select name="quality" id="">
+                  <option value="128" selected>128</option>
+                  <option value="164">164</option>
+                  <option value="320">320</option>
+                </select>
+              </div>
+              
+              <textarea name="" id="" cols="30" rows="10" placeholder="Nhập lời bài hát ... " class="file-upload__lyric"></textarea>
+            </div> 
+
+            <div class="btn-wrapper">
+              <button class="file-upload__button" id="submit-upload-music">Upload</button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 </body>
 <!-- js -->
-<script src="assets/js/background.js"></script>
-<script src="https://connect.soundcloud.com/sdk/sdk-3.3.0.js"></script>
 <script src="http://code.jquery.com/jquery-1.7.2.js"></script>
-<!-- <script src="assets/js/SC.js"></script> -->
-<script src="assets/js/main.js"></script>
+<script src="assets/js/dyst.js"></script>
 </html>

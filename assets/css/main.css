@@ -40,6 +40,15 @@ input {
   font-weight: normal;
   font-style: normal; }
 
+.invi {
+  opacity: 0 !important;
+  visibility: hidden !important; }
+
+.play-view-show {
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: fixed !important; }
+
 [class^="icon-"], [class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'icomoon' !important;
@@ -417,6 +426,38 @@ input, input:before, input:after {
       -webkit-transform: translateY(-50%);
       -ms-transform: translateY(-50%);
       transform: translateY(-50%); }
+  .menu-wrapper .trigger {
+    display: none; }
+    @media screen and (max-width: 992px) {
+      .menu-wrapper .trigger {
+        display: block;
+        width: 70px;
+        height: 70px;
+        top: 0;
+        right: 0;
+        position: absolute;
+        -webkit-transition: all 0.3s ease-in-out;
+        -o-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;
+        line-height: 88px;
+        cursor: pointer;
+        text-align: center; }
+        .menu-wrapper .trigger img {
+          width: 30px; }
+        .menu-wrapper .trigger.active {
+          background-color: #0a3e69; } }
+  @media screen and (max-width: 992px) {
+    .menu-wrapper {
+      -webkit-transform: translateY(-100%);
+      -ms-transform: translateY(-100%);
+      transform: translateY(-100%);
+      -webkit-transition: all 0.3s ease-in-out;
+      -o-transition: all 0.3s ease-in-out;
+      transition: all 0.3s ease-in-out; }
+      .menu-wrapper.show {
+        -webkit-transform: translateY(0);
+        -ms-transform: translateY(0);
+        transform: translateY(0); } }
   .menu-wrapper .menu-01 {
     float: right;
     height: 100%;
@@ -472,6 +513,37 @@ input, input:before, input:after {
         color: #ccc;
         display: inline-block;
         position: relative; }
+    @media screen and (max-width: 992px) {
+      .menu-wrapper .menu-01 {
+        top: 70px;
+        left: 0;
+        right: 0;
+        position: fixed;
+        padding: 0 calc(100% - 400px);
+        -webkit-transform: translateX(102%);
+        -ms-transform: translateX(102%);
+        transform: translateX(102%);
+        -webkit-transition: all 0.3s ease-in-out;
+        -o-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out; }
+        .menu-wrapper .menu-01 .item {
+          display: block;
+          width: 100%; }
+        .menu-wrapper .menu-01 a {
+          width: 100%; }
+        .menu-wrapper .menu-01 form {
+          width: 100%;
+          padding: 0 20px; }
+        .menu-wrapper .menu-01.show {
+          -webkit-transform: translateX(0);
+          -ms-transform: translateX(0);
+          transform: translateX(0); } }
+
+@media screen and (max-width: 992px) {
+  .menu-wrapper-02 {
+    -webkit-transform: translateY(0) !important;
+    -ms-transform: translateY(0) !important;
+    transform: translateY(0) !important; } }
 
 .bg-01 {
   top: 0;
@@ -1260,6 +1332,13 @@ input, input:before, input:after {
     padding: 6px 15px;
     border: none;
     border-radius: 3px; }
+  @media screen and (max-width: 992px) {
+    .Dashboard-02 .menu-sidebar-wrapper {
+      position: static;
+      width: 100%; }
+    .Dashboard-02 .main-content {
+      width: 100%;
+      margin-left: 0; } }
 
 .auth-page {
   min-height: 100vh;

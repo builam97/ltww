@@ -51,6 +51,17 @@ input {
   font-style: normal;
 }
 
+.invi {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+.play-view-show {
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: fixed !important;
+}
+
 [class^="icon-"], [class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'icomoon' !important;
